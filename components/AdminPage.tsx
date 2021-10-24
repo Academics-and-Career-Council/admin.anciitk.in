@@ -62,7 +62,7 @@ const AdminPage = () => {
   const content = (
     <div>
       <Button style={{width:"100%", borderColor: "#ffffff", textAlign:"left"}}>
-        <Link href="./settings"><p className={styles.logoutMenuItem}>Settings</p></Link>
+        <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/settings`}><p className={styles.logoutMenuItem}>Settings</p></Link>
       </Button>
       <Button style={{width:"100%", borderColor: "#ffffff", textAlign:"left"}}>
         <Link href={`${logoutUrl}`}><p className={styles.logoutMenuItem}>Logout</p></Link>
@@ -103,22 +103,22 @@ const AdminPage = () => {
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             <Menu theme="dark" defaultSelectedKeys={["6"]} mode="inline">
               <Menu.Item key="1" icon={<UserOutlined />}>
-                <Link href="/dashboard">Profile page</Link>
+                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/dashboard`}>Profile page</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<ApartmentOutlined />}>
-              <Link href="/resources">Resources Portal</Link>
+              <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/resources`}>Resources Portal</Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<WalletOutlined />}>
-              <Link href="/career">Career Portal</Link>
+              <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/career`}>Career Portal</Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<BookOutlined />}>
-              <Link href="/courses">Courses Portal</Link>
+              <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/courses`}>Courses Portal</Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<SettingOutlined />}>
-                <Link href="/settings">Settings</Link>
+                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/settings`}>Settings</Link>
               </Menu.Item>
               <Menu.Item key="6" icon={<SolutionOutlined />}>
-                <Link href="/settings">Admin</Link>
+                <Link href="/">Admin</Link>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -137,8 +137,8 @@ const AdminPage = () => {
                 <img
                   src="https://anciitk.in/img/anc-logo.png"
                   alt="AnC IITK logo"
-                  height="0px"
-                  width='120px'
+                  height="85px"
+                  width='110px'
                   style={{paddingLeft: '30px', paddingTop:"5px", paddingBottom:'5px'}}
                 />
               </Link>
@@ -243,35 +243,35 @@ const AdminPage = () => {
                 icon={<UserOutlined style={{ fontSize: "20px" }} />}
                 className={styles.phoneMenuProfile}
               >
-                <Link href="/dashboard">Profile page</Link>
+                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/dashboard`}>Profile page</Link>
               </Menu.Item>
               <Menu.Item
                 key="2"
                 icon={<ApartmentOutlined style={{ fontSize: "20px" }} />}
                 className={styles.phoneMenuProfile}
               >
-                <Link href="/resources">Resources Portal</Link>
+                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/resources`}>Resources Portal</Link>
               </Menu.Item>
               <Menu.Item
                 key="3"
                 icon={<SolutionOutlined style={{ fontSize: "20px" }} />}
                 className={styles.phoneMenuProfile}
               >
-               <Link href="/career">Career Portal</Link>
+               <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/career`}>Career Portal</Link>
               </Menu.Item>
               <Menu.Item
                 key="4"
                 icon={<BookOutlined style={{ fontSize: "20px" }} />}
                 className={styles.phoneMenuProfile}
               >
-                <Link href="/courses">Courses Portal</Link>
+                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/courses`}>Courses Portal</Link>
               </Menu.Item>
               <Menu.Item
                 key="5"
                 icon={<SettingOutlined style={{ fontSize: "20px" }} />}
                 className={styles.phoneMenuProfile}
               >
-                <Link href="/settings">Settings</Link>
+                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/settings`}>Settings</Link>
               </Menu.Item>
             </Menu>
             <div
@@ -389,17 +389,35 @@ const AdminPage = () => {
     return (<div />)
   }
 }
+
 export default secured({
   permissions: permissions.VIEW_ADMIN_PAGE,
   mapPropsToData: (props) => props,
-  noAccess: () => <div><Result
+  noAccess: () => { 
+    const [timeRedir, setTimeRedir] = useState(5);
+
+    setInterval(()=> {
+      if(timeRedir>=1) {
+        setTimeRedir(timeRedir-1);
+      }  
+      else {
+        setTimeRedir(1);
+      }
+    
+    }, 1000)
+    return (<div><Result
   status="403"
   title="Access Denied"
   subTitle="Sorry, you are not authorised to access this page!"
-  extra={
-    <Button type="primary" key="console" href={`${process.env.NEXT_PUBLIC_LOGIN_URL}`}>
-      Back to Accounts Portal
-    </Button>
-  }
-/></div> ,
+  extra={<>
+    
+    {useEffect(() => {
+      setTimeout(() => {
+        router.push(`${process.env.NEXT_PUBLIC_LOGIN_URL}`)
+      },3000)
+    }, [])}
+    
+    <p style={{color: "#666", fontSize: 17}}>you shall be redirected in <b>{timeRedir}</b> seconds...</p>
+  </>}
+/></div>) },
 })(AdminPage);

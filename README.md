@@ -6,7 +6,8 @@ env variables used-
 used for kratos.
 2. NEXT_PUBLIC_XENON_BASE_URL=http://localhost:4455/.xenon
 used for xenon.
-3. NEXT_PUBLIC_BASE_URL=http://localhost:3000
+3. NEXT_PUBLIC_BASE_URL=http://localhost:3001
 Used specifically when the session is not defined, in case that occurs, and assigns a session state in the index page.
-4. NEXT_PUBLIC_LOGIN_URL
+4. NEXT_PUBLIC_LOGIN_URL=http://localhost:3000
 Used specifically if used is either not logged in, or if he doesnt have access, i.e., is a student. (S)He will be redirected to the accounts portal to login.  
+**NOTE:** *Run the admin portal in port 3001*
