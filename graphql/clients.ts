@@ -7,8 +7,15 @@ const ArgonClient = new ApolloClient({
     credentials: 'allowed'
 });
 
+const CareerClient = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_CAREER_URL,
+    cache: new InMemoryCache(),
+    credentials: 'allowed'
+})
+
 const GrapQLClient = {
-    Argon: ArgonClient
+    Argon: ArgonClient,
+    Career: CareerClient
 }
 
 export default GrapQLClient;
