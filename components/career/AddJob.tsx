@@ -1,23 +1,41 @@
-import { Form, Input, Button, Checkbox, DatePicker } from "antd";
+import { AddJobVariables } from "../../actions/career/__generated__/AddJob";
+import { Form, Input, Button, Checkbox, DatePicker, message } from "antd";
 import { useState } from "react";
 import moment from "moment";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
+import addJob from "../../actions/career/addJob";
 
-const AddJob = () => {
+const AddJob: React.FC = () => {
   const mdParser = new MarkdownIt();
   const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const onFinish = (values: any) => {
+    setLoading(true);
+    delete values["check"];
+    const variables: AddJobVariables = {
+      data: { ...values, jd: values.jd.text, description: values.jd.text },
+    };
+    addJob(variables)
+      .then((data) => {
+        message.success("Job Successfully added");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error(err.message);
+        setLoading(false);
+      });
+  };
 
   return (
     <Form
       labelCol={{ span: 4 }}
       layout="vertical"
+      initialValues={{ check: false }}
       wrapperCol={{ span: 16 }}
       style={{ margin: "20px 0 0 20px" }}
-      onFinish={(values) => {
-        console.log(values);
-      }}
-      initialValues={{ check: false }}
+      onFinish={onFinish}
     >
       <Form.Item
         label="Company Name"
@@ -52,11 +70,15 @@ const AddJob = () => {
         name="deadline"
         rules={[{ required: true, message: "Please input deadline" }]}
       >
-        <DatePicker format='DD-MM-YYYY HH:mm:ss' showTime={{defaultValue: moment()}} />
+        <DatePicker
+          format="DD-MM-YYYY HH:mm"
+          showTime={{ defaultValue: moment() }}
+          disabledDate={(curr) => curr < moment().endOf('day')}
+        />
       </Form.Item>
       <Form.Item
-        label="Eligiblity"
-        name="eligiblity"
+        label="Eligibility"
+        name="eligibility"
         rules={[
           { required: true, message: "Please input eligiblity crierion" },
         ]}
@@ -90,13 +112,25 @@ const AddJob = () => {
       >
         <Input.TextArea />
       </Form.Item>
+      <Form.Item
+        label="Nature Of Business"
+        name="nature_of_business"
+        rules={[{ required: true, message: "Please input nature if business" }]}
+      >
+        <Input.TextArea />
+      </Form.Item>
       <Form.Item name="check" valuePropName="checked">
         <Checkbox onChange={(e) => setDisabled(!e.target.checked)}>
           I have Read and Verified Information
         </Checkbox>
       </Form.Item>
       <Form.Item>
-        <Button disabled={disabled} type="primary" htmlType="submit">
+        <Button
+          disabled={disabled}
+          loading={loading}
+          type="primary"
+          htmlType="submit"
+        >
           submit
         </Button>
       </Form.Item>

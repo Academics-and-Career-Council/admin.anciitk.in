@@ -1,44 +1,81 @@
+import { AddNotificationVariables } from "../../actions/career/__generated__/AddNotification";
 import MarkDownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { useState } from "react";
-import { Typography, Checkbox, Space, Button, Popover } from "antd";
+import { Checkbox, Button, Form, Input, message } from "antd";
+import addNotification from "../../actions/career/addNotification";
 
-const AddNotification = () => {
+const AddNotification: React.FC = () => {
   const mdParser = new MarkDownIt();
-  const [text, setText] = useState("");
-  const [checked, setChecked] = useState(false);
-
+  const [form] = Form.useForm()
+  const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const onFinish = (values: any) => {
+    setLoading(true);
+    const variables: AddNotificationVariables = {
+      data: { heading: values.heading, data: values.data.text },
+    };
+    addNotification(variables)
+      .then(() => {
+        setLoading(false);
+        form.resetFields()
+        message.success("Notification Successfully added");
+      })
+      .catch((err) => {
+        setLoading(false);
+        message.error(err.message);
+      });
+  };
+  
   return (
     <div className="m-4">
-      <Space direction="vertical" style={{ width: "100%" }} size="middle">
-        <Typography.Title level={4}>Write Notification here:</Typography.Title>
-        <MdEditor
-          value={text}
-          renderHTML={(text) => mdParser.render(text)}
-          onChange={({ text }) => setText(text)}
-          style={{ height: "300px" }}
-        />
-        <Checkbox
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
+      <Form
+        labelCol={{ span: 4 }}
+        layout="vertical"
+        wrapperCol={{ span: 16 }}
+        style={{ margin: "20px 0 0 20px" }}
+        initialValues={{ check: false }}
+        onFinish={onFinish}
+        form={form}
+      >
+        <Form.Item
+          label="Title"
+          name="heading"
+          rules={[
+            { required: true, message: "Please input notification title" },
+          ]}
         >
-          Read and verified information
-        </Checkbox>
-        {!checked ? (
-          <Popover
-            content={
-              <Typography.Text>
-                Please select above checkbox to submit.
-              </Typography.Text>
-            }
-            placement='bottomLeft'
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Notification"
+          name="data"
+          valuePropName="text"
+          rules={[
+            { required: true, message: "Please input notification body" },
+          ]}
+        >
+          <MdEditor
+            renderHTML={(text) => mdParser.render(text)}
+            style={{ height: "300px" }}
+          />
+        </Form.Item>
+        <Form.Item name="check" valuePropName="checked">
+          <Checkbox onChange={(e) => setDisabled(!e.target.checked)}>
+            I have Read and Verified Information
+          </Checkbox>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            disabled={disabled}
+            loading={loading}
+            type="primary"
+            htmlType="submit"
           >
-            <Button disabled>Submit</Button>
-          </Popover>
-        ) : (
-          <Button>Submit</Button>
-        )}
-      </Space>
+            submit
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };

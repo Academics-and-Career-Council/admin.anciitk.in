@@ -1,55 +1,56 @@
-import { List, Button, Typography, Space } from "antd";
+import type { GetNotifications_getNotifications } from "../../container/career/__generated__/GetNotifications";
+import { List, Button, Typography } from "antd";
 import MarkdownIt from "markdown-it";
 import parse, { domToReact } from "html-react-parser";
 import { Element } from "domhandler/lib/node";
 
-const data = [
-  {
-    heading: "Notif 1",
-    data: "This is a notification",
-  },
-  {
-    heading: "Notif 2",
-    data: "This is a notification",
-  },
-  {
-    heading: "Notif 3",
-    data: "This is a notification",
-  },
-  {
-    heading: "Notif 4",
-    data: "This is a notification",
-  },
-  {
-    heading: "Notif 4",
-    data: "This is a notification",
-  },
-  {
-    heading: "Notif 4",
-    data: "This is a notification",
-  },
-  {
-    heading: "Notif 4",
-    data: "This is a notification",
-  },
-  {
-    heading: "Notif 4",
-    data: "This is a notification",
-  },
-];
+// const notifications = [
+//   {
+//     heading: "Notif 1",
+//     data: "This is a notification",
+//   },
+//   {
+//     heading: "Notif 2",
+//     data: "This is a notification",
+//   },
+//   {
+//     heading: "Notif 3",
+//     data: "This is a notification",
+//   },
+//   {
+//     heading: "Notif 4",
+//     data: "This is a notification",
+//   },
+//   {
+//     heading: "Notif 4",
+//     data: "This is a notification",
+//   },
+//   {
+//     heading: "Notif 4",
+//     data: "This is a notification",
+//   },
+//   {
+//     heading: "Notif 4",
+//     data: "This is a notification",
+//   },
+//   {
+//     heading: "Notif 4",
+//     data: "This is a notification",
+//   },
+// ];
 
-const Notifications = () => {
+const Notifications: React.FC<{notifications: (GetNotifications_getNotifications | null)[]}> = ({notifications}) => {
   const mdParser = new MarkdownIt();
   return (
     <List
-      dataSource={data}
+      dataSource={notifications}
       size="large"
       header={
         <Typography.Title style={{ textAlign: "center" }} level={3}>
           Notifications
         </Typography.Title>
       }
-      renderItem={(item, idx) => (
+      renderItem={(notification, idx) => (
         <List.Item
           actions={[
             <Button key={idx} type="ghost">
@@ -61,8 +62,8 @@ const Notifications = () => {
           ]}
         >
           <List.Item.Meta
-            title={item.heading}
-            description={parse(mdParser.render(item.data), {
+            title={notification?.heading}
+            description={parse(mdParser.render(notification?.data || ""), {
               replace: (domNode) => {
                 if (domNode instanceof Element && domNode.name === "p") {
                   return (

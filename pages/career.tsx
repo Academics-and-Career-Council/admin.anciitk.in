@@ -5,10 +5,7 @@ import HomeOutlined from "@ant-design/icons/HomeOutlined";
 import LogoutOutlined from "@ant-design/icons/LoginOutlined";
 
 import Navbar from "../components/career/Navbar";
-import AddNotification from "../components/career/AddNotification";
-import Notifications from "../components/career/Notifications";
-import AddJob from "../components/career/AddJob";
-import Jobs from "../components/career/Jobs";
+import getCurrentComponent from "../pkg/component";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
@@ -16,10 +13,10 @@ const itemStyle = { display: "flex", alignItems: "center" };
 
 const CareerDashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState<string>("");
+  const [selectedKey, setSelectedKey] = useState<string>("11");
 
   return (
-    <Layout style={{ minHeight: "100vh", width: '100vw' }}>
+    <Layout style={{ minHeight: "100vh", width: "100vw" }}>
       <Sider
         style={{
           position: "sticky",
@@ -37,7 +34,12 @@ const CareerDashboard = () => {
       <Layout>
         <Header
           className="flex justify-between items-center"
-          style={{ backgroundColor: "white", position: "sticky", top: 0, zIndex: 100}}
+          style={{
+            backgroundColor: "white",
+            position: "sticky",
+            top: 0,
+            zIndex: 100,
+          }}
         >
           <Title level={2}>Dashboard</Title>
           <Menu
@@ -63,7 +65,7 @@ const CareerDashboard = () => {
           </Menu>
         </Header>
         <Content className="m-4 bg-white">
-          <Jobs />
+          {getCurrentComponent(selectedKey)}
         </Content>
         <Footer className="mx-4" style={{ backgroundColor: "black" }}>
           footer

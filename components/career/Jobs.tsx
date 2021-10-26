@@ -1,78 +1,73 @@
-import { Button, Space, Table, Typography } from "antd"
-import { ColumnsType } from "antd/lib/table"
-import moment from "moment"
+import { GetAdminJobs_getAdminJobs } from "../../container/career/__generated__/GetAdminJobs";
+import { Button, Space, Table, Typography } from "antd";
+import { ColumnsType } from "antd/lib/table";
+import moment from "moment";
+import DeleteJob from "../../actions/career/DeleteJob";
+import HideJobButton from "../../actions/career/HideJob";
 
-type Job = {
-  name: string
-  designation: string
-  deadline: string
-  stipend: string
-}
-
-const data: Job[] = [
+const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
   {
-    name: 'Amazon',
-    designation: 'SDE',
-    deadline: moment().add(1, 'day').toISOString(),
-    stipend: '10000'
+    title: "COMPANY NAME",
+    dataIndex: "name",
+    key: "name",
   },
   {
-    name: 'Amazon',
-    designation: 'SDE',
-    deadline: moment().subtract(1, 'day').toISOString(),
-    stipend: '20000'
+    title: "OPENING NAME",
+    dataIndex: "designation",
+    key: "designation",
   },
   {
-    name: 'Amazon',
-    designation: 'SDE',
-    deadline: moment().toISOString(),
-    stipend: '20000'
-  },
-]
-
-const columns: ColumnsType<Job> = [
-  {
-    title: 'COMPANY NAME',
-    dataIndex: 'name',
-    key: 'name'
-  },
-  {
-    title: 'OPENING NAME',
-    dataIndex: 'designation',
-    key: 'designation'
-  },
-  {
-    title: 'DEADLINE',
-    dataIndex: 'deadline',
-    key: 'deadline',
-    sortOrder: 'descend',
+    title: "DEADLINE",
+    dataIndex: "deadline",
+    key: "deadline",
+    sortOrder: "descend",
     sortDirections: [],
     sorter: (a, b) => moment(a.deadline).diff(moment(b.deadline)),
-    render: (date: string) => moment(date).format('MMM Do YY')
+    render: (date: string) => moment(date).format("MMM Do YY"),
   },
   {
-    title: 'Stipend',
-    dataIndex: 'stipend',
-    key: 'stipend',
+    title: "Stipend",
+    dataIndex: "stipend",
+    key: "stipend",
   },
   {
-    title: 'ACTIONS',
-    dataIndex: 'actions',
-    key: 'actions',
-    render: () => (
+    title: "Visibility",
+    dataIndex: "visibility",
+    key: "visibility",
+    render: (visible: boolean) => (visible ? "Visible" : "Hidden"),
+  },
+  {
+    title: "ACTIONS",
+    dataIndex: "actions",
+    key: "actions",
+    render: (_, record) => (
       <Space>
-        <Button type='ghost'>Edit</Button>
-        <Button type='ghost'>Delete</Button>
+        <Button type="ghost">Edit</Button>
+        <HideJobButton id={record.id} />
+        <DeleteJob id={record.id} />
       </Space>
-    )
-  }
-]
+    ),
+  },
+];
 
-const Jobs = () => {
-  
+const Jobs: React.FC<{ jobs: GetAdminJobs_getAdminJobs[] }> = ({ jobs }) => {
   return (
-    <Table bordered style={{textAlign: 'center'}} columns={columns} dataSource={data} pagination={false} />
-  )
-}
+    <>
+      <Typography.Title
+        level={3}
+        style={{ textAlign: "center", margin: "15px 0" }}
+      >
+        Jobs
+      </Typography.Title>
+      <Table
+        bordered
+        style={{ textAlign: "center" }}
+        columns={columns}
+        dataSource={jobs}
+        pagination={false}
+      />
+    </>
+  );
+};
 
-export default Jobs
+export default Jobs;
