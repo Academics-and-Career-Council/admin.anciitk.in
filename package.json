@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql/career-schema.json --target=typescript --tagName=gql",
+    "download-schema": "npx apollo service:download --endpoint=http://localhost:5000/graphql graphql/career-schema.json"
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
@@ -25,8 +27,10 @@
     "tailwindcss": "^2.2.16"
   },
   "devDependencies": {
+    "@types/graphql": "^14.5.0",
     "@types/markdown-it": "^12.2.3",
     "@types/react": "17.0.27",
+    "apollo": "^2.33.6",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "typescript": "4.4.3"
