@@ -2,7 +2,7 @@ import { GetAdminJobs_getAdminJobs } from "../../container/career/__generated__/
 import { Button, Space, Table, Typography } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
-import DeleteJob from "../../actions/career/DeleteJob";
+import DeleteJobButton from "../../actions/career/DeleteJob";
 import HideJobButton from "../../actions/career/HideJob";
 
 const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
@@ -44,7 +44,7 @@ const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
       <Space>
         <Button type="ghost">Edit</Button>
         <HideJobButton id={record.id} />
-        <DeleteJob id={record.id} />
+        <DeleteJobButton id={record.id} />
       </Space>
     ),
   },

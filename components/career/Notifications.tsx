@@ -3,44 +3,17 @@ import { List, Button, Typography } from "antd";
 import MarkdownIt from "markdown-it";
 import parse, { domToReact } from "html-react-parser";
 import { Element } from "domhandler/lib/node";
+import moment from "moment";
+import DeleteNotificationButton from "../../actions/career/DeleteNotification";
 
-// const notifications = [
-//   {
-//     heading: "Notif 1",
-//     data: "This is a notification",
-//   },
-//   {
-//     heading: "Notif 2",
-//     data: "This is a notification",
-//   },
-//   {
-//     heading: "Notif 3",
-//     data: "This is a notification",
-//   },
-//   {
-//     heading: "Notif 4",
-//     data: "This is a notification",
-//   },
-//   {
-//     heading: "Notif 4",
-//     data: "This is a notification",
-//   },
-//   {
-//     heading: "Notif 4",
-//     data: "This is a notification",
-//   },
-//   {
-//     heading: "Notif 4",
-//     data: "This is a notification",
-//   },
-//   {
-//     heading: "Notif 4",
-//     data: "This is a notification",
-//   },
-// ];
-
-const Notifications: React.FC<{notifications: (GetNotifications_getNotifications | null)[]}> = ({notifications}) => {
+const Notifications: React.FC<{
+  notifications: (GetNotifications_getNotifications | null)[];
+}> = ({ notifications }) => {
   const mdParser = new MarkdownIt();
+  notifications = notifications
+    .slice()
+    .sort((a, b) => moment(a?.modified).diff(b?.modified));
+
   return (
     <List
       dataSource={notifications}
@@ -56,9 +29,7 @@ const Notifications: React.FC<{notifications: (GetNotifications_getNotifications
             <Button key={idx} type="ghost">
               Edit
             </Button>,
-            <Button key={idx} type="ghost">
-              Delete
-            </Button>,
+            <DeleteNotificationButton id={notification?.id || ""} key={idx} />,
           ]}
         >
           <List.Item.Meta
@@ -73,6 +44,9 @@ const Notifications: React.FC<{notifications: (GetNotifications_getNotifications
               },
             })}
           />
+          <Typography.Text>
+            {moment(notification?.modified).format("MMM Do YY HH:mm a")}
+          </Typography.Text>
         </List.Item>
       )}
     />

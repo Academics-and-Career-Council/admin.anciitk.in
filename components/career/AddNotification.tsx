@@ -30,9 +30,9 @@ const AddNotification: React.FC = () => {
   return (
     <div className="m-4">
       <Form
-        labelCol={{ span: 4 }}
+        labelCol={{ span: 8 }}
         layout="vertical"
-        wrapperCol={{ span: 16 }}
+        wrapperCol={{ span: 20 }}
         style={{ margin: "20px 0 0 20px" }}
         initialValues={{ check: false }}
         onFinish={onFinish}

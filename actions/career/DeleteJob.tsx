@@ -1,30 +1,40 @@
-import { removeJob, removeJobVariables } from "./__generated__/removeJob";
+import { RemoveJob, RemoveJobVariables } from "./__generated__/RemoveJob";
 import { gql, useMutation } from "@apollo/client";
 import { Button, message } from "antd";
 
 const DELETE_JOB = gql`
-  mutation removeJob($id: ID!) {
+  mutation RemoveJob($id: ID!) {
     removeJob(id: $id) {
       id
     }
   }
 `;
 
-const DeleteJob: React.FC<removeJobVariables> = ({ id }) => {
-  const [commit, { data, loading, error }] = useMutation<
-    removeJob,
-    removeJobVariables
-  >(DELETE_JOB, { variables: { id } });
-
-  if (error) {
-    message.error(error.message);
-  }
+const DeleteJobButton: React.FC<RemoveJobVariables> = ({ id }) => {
+  const [commit, { loading }] = useMutation<RemoveJob, RemoveJobVariables>(
+    DELETE_JOB,
+    { variables: { id } }
+  );
 
   return (
-    <Button loading={loading} onClick={() => commit()}>
+    <Button
+      loading={loading}
+      onClick={() =>
+        commit()
+          .then(() =>
+            message.success(
+              "Job removed Successfully with all the applications associated with it"
+            )
+          )
+          .catch((err) => {
+            message.error(err.message);
+            console.log(err);
+          })
+      }
+    >
       delete
     </Button>
   );
 };
 
-export default DeleteJob
+export default DeleteJobButton;

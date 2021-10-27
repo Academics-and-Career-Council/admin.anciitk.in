@@ -4,18 +4,18 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: removeJob
+// GraphQL mutation operation: RemoveJob
 // ====================================================
 
-export interface removeJob_removeJob {
+export interface RemoveJob_removeJob {
   __typename: "AdminJob";
   id: string;
 }
 
-export interface removeJob {
-  removeJob: removeJob_removeJob;
+export interface RemoveJob {
+  removeJob: RemoveJob_removeJob;
 }
 
-export interface removeJobVariables {
+export interface RemoveJobVariables {
   id: string;
 }

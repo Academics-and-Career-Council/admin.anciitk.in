@@ -12,19 +12,29 @@ const HIDE_JOB = gql`
 `;
 
 const HideJobButton: React.FC<HideJobVariables> = ({ id }) => {
-  const [commit, { loading, error, data }] = useMutation<HideJob>(HIDE_JOB, {
+  const [commit, { loading, error }] = useMutation<HideJob>(HIDE_JOB, {
     variables: { id },
   });
-  console.log(id)
-  if (error) {
-    message.error(error.message);
-  }
-  
+
   return (
-    <Button loading={loading} onClick={() => commit()}>
+    <Button
+      loading={loading}
+      onClick={() =>
+        commit()
+          .then(() =>
+            message.success(
+              "Job successfully hided from users with all the applications associated"
+            )
+          )
+          .catch((err) => {
+            message.error(err.message);
+            console.error(err);
+          })
+      }
+    >
       Hide
     </Button>
   );
 };
 
-export default HideJobButton
+export default HideJobButton;

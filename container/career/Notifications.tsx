@@ -10,7 +10,8 @@ const  GET_NOTIFICATIONS = gql`
     getNotifications{
       id,
       heading,
-      data
+      data,
+      modified
     }
   }
 `

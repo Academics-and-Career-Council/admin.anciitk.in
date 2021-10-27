@@ -4,17 +4,18 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetNotifications
+// GraphQL mutation operation: RemoveNotification
 // ====================================================
 
-export interface GetNotifications_getNotifications {
+export interface RemoveNotification_removeNotification {
   __typename: "Notification";
   id: string;
-  heading: string;
-  data: string;
-  modified: string;
 }
 
-export interface GetNotifications {
-  getNotifications: (GetNotifications_getNotifications | null)[];
+export interface RemoveNotification {
+  removeNotification: RemoveNotification_removeNotification;
+}
+
+export interface RemoveNotificationVariables {
+  id: string;
 }
