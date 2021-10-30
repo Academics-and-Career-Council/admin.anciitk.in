@@ -5,6 +5,7 @@ module.exports = {
     service: {
       name: "admin portal",
       localSchemaFile: './graphql/career-schema.json'
-    }
+    },
+    connectToDevTools: true
   }
 }

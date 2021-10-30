@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Layout, Menu, Typography } from "antd";
 import HomeOutlined from "@ant-design/icons/HomeOutlined";
 import LogoutOutlined from "@ant-design/icons/LoginOutlined";
@@ -12,8 +13,15 @@ const { Title } = Typography;
 const itemStyle = { display: "flex", alignItems: "center" };
 
 const CareerDashboard = () => {
+  
+  useEffect(() => {
+    const [mode, id] = window.location.href.trim().split('?')[1].split('&')
+    if (!mode) {
+      router.push("/career?mode=addnotification", undefined, { shallow: true });
+    }
+  }, []);
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState<string>("11");
 
   return (
     <Layout style={{ minHeight: "100vh", width: "100vw" }}>
@@ -29,7 +37,7 @@ const CareerDashboard = () => {
         collapsed={collapsed}
         onCollapse={(collapsed) => setCollapsed(collapsed)}
       >
-        <Navbar selectedKey={selectedKey} setSelectedKey={setSelectedKey} />
+        <Navbar />
       </Sider>
       <Layout>
         <Header
@@ -65,7 +73,11 @@ const CareerDashboard = () => {
           </Menu>
         </Header>
         <Content className="m-4 bg-white">
-          {getCurrentComponent(selectedKey)}
+          {typeof router.query["mode"] === "string" &&
+          (typeof router.query["id"] === "string" ||
+            typeof router.query["id"] === "undefined")
+            ? getCurrentComponent(router.query["mode"], router.query["id"])
+            : "invalid mode"}
         </Content>
         <Footer className="mx-4" style={{ backgroundColor: "black" }}>
           footer

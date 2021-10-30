@@ -13,7 +13,7 @@ const DELETE_JOB = gql`
 const DeleteJobButton: React.FC<RemoveJobVariables> = ({ id }) => {
   const [commit, { loading }] = useMutation<RemoveJob, RemoveJobVariables>(
     DELETE_JOB,
-    { variables: { id } }
+    { variables: { id }, refetchQueries: ["GetAdminJobs"] }
   );
 
   return (

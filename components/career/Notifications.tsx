@@ -1,5 +1,6 @@
 import type { GetNotifications_getNotifications } from "../../container/career/__generated__/GetNotifications";
 import { List, Button, Typography } from "antd";
+import router from "next/router";
 import MarkdownIt from "markdown-it";
 import parse, { domToReact } from "html-react-parser";
 import { Element } from "domhandler/lib/node";
@@ -20,13 +21,23 @@ const Notifications: React.FC<{
       size="large"
       header={
         <Typography.Title style={{ textAlign: "center" }} level={3}>
-          Notifications
+          NOTIFICATIONS
         </Typography.Title>
       }
       renderItem={(notification, idx) => (
         <List.Item
           actions={[
-            <Button key={idx} type="ghost">
+            <Button
+              key={idx}
+              type="ghost"
+              onClick={() =>
+                router.push(
+                  `/career?mode=editnotification&id=${notification?.id}`,
+                  undefined,
+                  { shallow: true }
+                )
+              }
+            >
               Edit
             </Button>,
             <DeleteNotificationButton id={notification?.id || ""} key={idx} />,

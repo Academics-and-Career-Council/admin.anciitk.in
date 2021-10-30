@@ -22,6 +22,7 @@ const commit = async ({ data }: AddJobVariables) => {
   >({
     mutation: ADD_JOB,
     variables: { data },
+    refetchQueries: ['GetAdminJobs']
   });
 };
 
