@@ -4,10 +4,13 @@ import { CareerClient } from "../graphql/clients";
 import AddNotification from "../components/career/AddNotification";
 import Notifications from "../container/career/Notifications";
 import AddJob from "../components/career/AddJob";
-import Jobs from "../container/career/Jobs";
+import JobsContainer from "../container/career/Jobs";
+import Jobs from "../components/career/Jobs";
 import EditJob from "../container/career/EditJob";
 import EditNotification from "../container/career/EditNotification";
 import React from "react";
+import Applications from "../components/career/Applications";
+import ViewApplications from "../container/career/ViewApplications";
 
 const getCurrentComponent = (mode: string, id: string | undefined) => {
   return (
@@ -21,7 +24,12 @@ const getCurrentComponent = (mode: string, id: string | undefined) => {
             <Notifications />
           ),
           addjob: <AddJob />,
-          editjob: id ? <EditJob id={id} /> : <Jobs />,
+          editjob: id ? <EditJob id={id} /> : <JobsContainer Children={Jobs} />,
+          applications: id ? (
+            <ViewApplications jobID={id} />
+          ) : (
+            <JobsContainer Children={Applications} />
+          ),
         }[mode]
       }
     </ApolloProvider>

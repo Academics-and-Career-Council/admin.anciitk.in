@@ -25,6 +25,9 @@ const getMode = (key: string) => {
     case "22":
       mode = "editjob";
       break;
+    case "3":
+      mode = "applications";
+      break;
     default:
       mode = "notvalid";
       break;
@@ -38,6 +41,7 @@ const paths: { [name: string]: string } = {
   editnotification: "12",
   addjob: "21",
   editjob: "22",
+  applications: "3",
 };
 
 const Navbar: React.FC = () => {
@@ -48,8 +52,8 @@ const Navbar: React.FC = () => {
     const mode = window.location.href
       .trim()
       .split("?")[1]
-      .split("&")[0]
-      .split("=")[1];
+      ?.split("&")[0]
+      ?.split("=")[1];
     setSelectedKey(mode);
   }, []);
   const itemStyle = { display: "flex", alignItems: "center" };

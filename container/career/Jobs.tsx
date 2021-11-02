@@ -1,9 +1,9 @@
-import { GetAdminJobs } from "./__generated__/GetAdminJobs"
+import { GetAdminJobs, GetAdminJobs_getAdminJobs } from "./__generated__/GetAdminJobs"
 import { gql, useQuery } from "@apollo/client"
 import { Result } from "antd"
 
 import Loader from "../../components/Loader"
-import Jobs from "../../components/career/Jobs"
+import React from "react"
 
 const GET_ADMIN_JOBS = gql`
   query GetAdminJobs{
@@ -18,7 +18,7 @@ const GET_ADMIN_JOBS = gql`
   }
 `
 
-const JobsContainer: React.FC = () => {
+const JobsContainer: React.FC<{Children: React.FC<{jobs: GetAdminJobs_getAdminJobs[]}>}> = ({Children}) => {
   const {loading, error, data} = useQuery<GetAdminJobs>(GET_ADMIN_JOBS, {variables: {}})
   if(loading) return <Loader />
   if(error) return (
@@ -26,7 +26,7 @@ const JobsContainer: React.FC = () => {
   )
   return (
     // @ts-ignore
-    <Jobs jobs={data?.getAdminJobs || []}/> 
+    <Children jobs={data?.getAdminJobs || []}/> 
   )
 }
 

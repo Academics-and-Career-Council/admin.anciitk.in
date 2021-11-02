@@ -3,8 +3,6 @@ import { Button, Space, Table, Typography } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import router from "next/router";
-import DeleteJobButton from "../../actions/career/DeleteJob";
-import HideJobButton from "../../actions/career/HideJob";
 
 const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
   {
@@ -46,28 +44,26 @@ const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
         <Button
           type="ghost"
           onClick={() =>
-            router.push(`/career?mode=editjob&id=${record.id}`, undefined, {
+            router.push(`/career?mode=applications&id=${record.id}`, undefined, {
               shallow: true,
             })
           }
         >
-          Edit
+          View Applications
         </Button>
-        <HideJobButton id={record.id} />
-        <DeleteJobButton id={record.id} />
       </Space>
     ),
   },
 ];
 
-const Jobs: React.FC<{ jobs: GetAdminJobs_getAdminJobs[] }> = ({ jobs }) => {
+const Applications: React.FC<{ jobs: GetAdminJobs_getAdminJobs[] }> = ({ jobs }) => {
   return (
     <>
       <Typography.Title
         level={3}
         style={{ textAlign: "center", margin: "15px 0" }}
       >
-        JOBS
+        Applications
       </Typography.Title>
       <Table
         bordered
@@ -80,4 +76,4 @@ const Jobs: React.FC<{ jobs: GetAdminJobs_getAdminJobs[] }> = ({ jobs }) => {
   );
 };
 
-export default Jobs;
+export default Applications;
