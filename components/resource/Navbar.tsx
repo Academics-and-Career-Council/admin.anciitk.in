@@ -41,7 +41,7 @@ const getWing = (key: string) => {
   let wing = "";
   switch (wingKey) {
     case "1":
-      wing = "wing1";
+      wing = "career development";
       break;
     case "2":
       wing = "wing2";
@@ -111,31 +111,7 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
           });
         }}
       >
-        {/* Error exists till now */}
-        {/* {wings.forEach((wing, index)=> <Submenu number={`${index}`} key={index} title={wing.name}/>)} */}
-        <SubMenu key="1" icon={<TagsOutlined />} title={wings[0].name}>
-          <Item key="11" icon={<PlusCircleOutlined />}>
-            Add Resource
-          </Item>
-          <Item key="12" icon={<EditOutlined />}>
-            Edit Resources
-          </Item>
-          <Item key="13" icon={<DeleteOutlined />}>
-            Delete Resources
-          </Item>
-        </SubMenu>
-
-        <SubMenu key="2" icon={<TagsOutlined />} title="Wing 2">
-          <Item key="21" icon={<PlusCircleOutlined />}>
-            Add Resource
-          </Item>
-          <Item key="22" icon={<EditOutlined />}>
-            Edit Resources
-          </Item>
-          <Item key="23" icon={<DeleteOutlined />}>
-            Delete Resources
-          </Item>
-        </SubMenu>
+        {wings.map((wing, index)=> <Submenu number={`${index}`} key={index} title={wing.name}/>)}
       </Menu>
     </>
   );

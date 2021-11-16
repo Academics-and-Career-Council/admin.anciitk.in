@@ -20,7 +20,6 @@ const NavbarContainer: React.FC = () => {
   });
   if (loading) return <Loader />;
   if (error) {
-    console.log(error);
     return (
       <Result status="error" title={error.name} subTitle={error.message} />
     );
