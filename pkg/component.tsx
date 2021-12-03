@@ -17,6 +17,7 @@ const getCurrentComponent = (mode: string, id: string | undefined) => {
     <ApolloProvider client={CareerClient}>
       {
         {
+          invalid: <div></div>,
           addnotification: <AddNotification />,
           editnotification: id ? (
             <EditNotification id={id} />

@@ -1,6 +1,7 @@
 import { RemoveJob, RemoveJobVariables } from "./__generated__/RemoveJob";
 import { gql, useMutation } from "@apollo/client";
-import { Button, message } from "antd";
+import { Button, message, Popconfirm, Typography } from "antd";
+import { useState } from "react";
 
 const DELETE_JOB = gql`
   mutation RemoveJob($id: ID!) {
@@ -15,11 +16,24 @@ const DeleteJobButton: React.FC<RemoveJobVariables> = ({ id }) => {
     DELETE_JOB,
     { variables: { id }, refetchQueries: ["GetAdminJobs"] }
   );
+  const [visible, setVisible] = useState(false);
 
   return (
-    <Button
-      loading={loading}
-      onClick={() =>
+    <Popconfirm
+      visible={visible}
+      placement="topRight"
+      title={
+        <>
+          <Typography.Title level={5}>
+            Are you sure you want to delete this job? Once performed this action
+            cant be reversed
+          </Typography.Title>
+          <Typography.Text strong>
+            Note this will also delete all the associated applications
+          </Typography.Text>
+        </>
+      }
+      onConfirm={() =>
         commit()
           .then(() =>
             message.success(
@@ -31,9 +45,11 @@ const DeleteJobButton: React.FC<RemoveJobVariables> = ({ id }) => {
             console.log(err);
           })
       }
+      okButtonProps={{ loading }}
+      onCancel={() => setVisible(false)}
     >
-      delete
-    </Button>
+      <Button onClick={() => setVisible(true)}>delete</Button>
+    </Popconfirm>
   );
 };
 

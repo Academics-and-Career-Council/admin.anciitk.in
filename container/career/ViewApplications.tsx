@@ -36,7 +36,7 @@ const ViewApplicationsContainer: React.FC<GetApplicationsVariables> = ({
     <Result status='error' title={error.name} subTitle={error.message} />
   )
   // @ts-ignore
-  return <ViewApplications applications={data?.getAdminApplications || []} />;
+  return <ViewApplications applications={data?.getAdminApplications || []} jobID={jobID} />;
 };
 
 export default ViewApplicationsContainer;

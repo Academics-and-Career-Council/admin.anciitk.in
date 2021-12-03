@@ -4,19 +4,19 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: HideJob
+// GraphQL mutation operation: ToggleJob
 // ====================================================
 
-export interface HideJob_hideJob {
+export interface ToggleJob_toggleJob {
   __typename: "AdminJob";
   id: string;
   visibility: boolean;
 }
 
-export interface HideJob {
-  hideJob: HideJob_hideJob;
+export interface ToggleJob {
+  toggleJob: ToggleJob_toggleJob;
 }
 
-export interface HideJobVariables {
+export interface ToggleJobVariables {
   id: string;
 }

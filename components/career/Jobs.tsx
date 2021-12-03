@@ -4,7 +4,7 @@ import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import router from "next/router";
 import DeleteJobButton from "../../actions/career/DeleteJob";
-import HideJobButton from "../../actions/career/HideJob";
+import ToggleJobButton from "../../actions/career/ToggleJob";
 
 const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
   {
@@ -53,7 +53,7 @@ const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
         >
           Edit
         </Button>
-        <HideJobButton id={record.id} />
+        <ToggleJobButton id={record.id} text={record.visibility ? 'Hide' : 'Unhide'} />
         <DeleteJobButton id={record.id} />
       </Space>
     ),

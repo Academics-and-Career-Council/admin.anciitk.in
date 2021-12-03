@@ -17,7 +17,7 @@ const CareerDashboard = () => {
   useEffect(() => {
     const mode = window.location.href.trim().split("?")[1]?.split("&")[0];
     if (!mode) {
-      router.push("/career?mode=addnotification", undefined, { shallow: true });
+      router.push("/career?mode=invalid", undefined, { shallow: true });
     }
   }, []);
   const router = useRouter();
