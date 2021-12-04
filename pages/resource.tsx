@@ -17,6 +17,17 @@ import { ApolloProvider } from "@apollo/client";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
+const toTitleCase= (str:string|string[] | undefined) => {
+  if(typeof(str)==="string") {
+    return str.replace(
+      /\w\S*/g,
+      (txt:string) => {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }
+}
+
 const SiderDemo: React.FC = () => {
   const router = useRouter();
   const [collapsed, setCollapse] = useState(false);
@@ -25,6 +36,7 @@ const SiderDemo: React.FC = () => {
     <>
       <Head>
         <title>Resource Portal Admin</title>
+        <link rel="favicon" href="../../public/favicon.ico" />
       </Head>
       <ApolloProvider client={ResourceClient}>
         <Layout style={{ minHeight: "100vh", width: "100vw" }}>
@@ -53,7 +65,7 @@ const SiderDemo: React.FC = () => {
                 zIndex: 100,
               }}
             >
-              <Title level={2}>Dashboard</Title>
+              <Title className="mt-6" level={2}>Dashboard</Title>
               <Menu
                 mode="horizontal"
                 theme="light"
@@ -88,15 +100,14 @@ const SiderDemo: React.FC = () => {
                 Bill is a cat.
               </div>
             </Content> */}
-            <Content className="m-4 bg-white" style={{ margin: "0 16px" }}>
-              <Breadcrumb style={{ margin: "16px 0" }}>
-                <Breadcrumb.Item>{router.query["wing"]}</Breadcrumb.Item>
-                <Breadcrumb.Item>{router.query["mode"]}</Breadcrumb.Item>
+            <Content className="m-4 bg-white" >
+              <div className="m-4 ml-8 mb-0">
+              <Breadcrumb >
+                <Breadcrumb.Item >{toTitleCase(router.query["wing"])}</Breadcrumb.Item>
+                <Breadcrumb.Item>{toTitleCase(router.query["mode"])}</Breadcrumb.Item>
               </Breadcrumb>
-              <div
-                
-                style={{ padding: 24, minHeight: 360 }}
-              >
+              </div>
+              <div style={{ padding: 24, minHeight: 360 }}>
                 {typeof router.query["wing"] === "string" &&
                 typeof router.query["mode"] === "string" &&
                 (typeof router.query["id"] === "string" ||
@@ -106,7 +117,7 @@ const SiderDemo: React.FC = () => {
                       router.query["mode"],
                       router.query["id"]
                     )
-                  : "invalid mode"}
+                  : getCurrentComponent("invalid", "invalid", undefined)}
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}>

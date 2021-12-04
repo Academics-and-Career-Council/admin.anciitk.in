@@ -9,6 +9,18 @@
 //==============================================================
 
 
+export enum Category {
+  GDRIVE = "GDRIVE",
+  PDF = "PDF",
+  YOUTUBE = "YOUTUBE",
+  ZOOM = "ZOOM",
+}
+
+export enum Type {
+  DOCUMENT = "DOCUMENT",
+  VIDEO = "VIDEO",
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
