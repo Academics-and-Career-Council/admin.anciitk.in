@@ -1,0 +1,64 @@
+.coursesButton {
+    height: 200px;
+    width: 40%;
+    font-size: 25px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    justify-content: center;
+    align-items: center; 
+    box-shadow: 1px 4px #ccc;
+}
+.phoneButton {
+    height: 100px;
+    width: 100%;
+    font-size: 25px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    justify-content: center;
+    align-items: center; 
+    box-shadow: 1px 4px #ccc;
+}
+.container {
+    text-align: center;
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: whitesmoke;
+    background-size: cover;
+}
+.base {
+    padding-top: 3px;
+    font-size: 35px;
+}
+.center {
+    margin: auto;
+    width: 60%;
+    min-width: 500px;
+    text-align: center;
+    padding: 10px;
+}  
+.form_signup {
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+    background-color: whitesmoke;
+}
+.phoneMenuProfile {
+    font-size: 17px;
+    padding: 40px;
+    padding: top 10px;
+    padding: left 25px;
+}
+.arrowProfile {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
