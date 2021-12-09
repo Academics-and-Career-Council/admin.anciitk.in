@@ -21,6 +21,12 @@ export enum Type {
   VIDEO = "VIDEO",
 }
 
+export interface NewObject {
+  name: string;
+  category: Category;
+  link: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

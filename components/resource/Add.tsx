@@ -2,7 +2,7 @@ import {
   getTitles,
   getTitles_getResourcesByWing,
 } from "./__generated__/getTitles";
-import { Menu, Dropdown, Button, Input, Form } from "antd";
+import { Menu, Dropdown, Button, Input, Form, Checkbox, Select } from "antd";
 import { gql, useQuery } from "@apollo/client";
 import Loading3QuartersOutlined from "@ant-design/icons/Loading3QuartersOutlined";
 import CloseCircleOutlined from "@ant-design/icons/CloseCircleOutlined";
@@ -12,6 +12,8 @@ import React, { useEffect, useState } from "react";
 import Title from "antd/lib/typography/Title";
 import { useRouter } from "next/router";
 import MenuItem from "antd/lib/menu/MenuItem";
+import { toTitleCase } from "../../pkg/helpers";
+import head from "next/head";
 
 const ADD_RESOURCE = gql`
   query getTitles($wing: String!) {
@@ -27,11 +29,13 @@ interface props {
 
 // component
 const Add: React.FC<props> = ({ wing }) => {
-  const [dropMenu, setDropMenu] = useState<string>("-- Choose Category --");
+  const [dropMenu, setDropMenu] = useState<string | undefined>(undefined);
   const [heading, setHeading] = useState<string>("");
   const [menu, setMenu] = useState(<></>);
   const [name, setName] = useState<string>("");
   const [link, setLink] = useState<string>("");
+  const [disabled, setDisabled] = useState(true);
+  const [loader, setLoader] = useState(false);
   const router = useRouter();
   const { loading, error, data } = useQuery<getTitles>(ADD_RESOURCE, {
     variables: { wing: wing },
@@ -56,29 +60,13 @@ const Add: React.FC<props> = ({ wing }) => {
       const titles = data?.getResourcesByWing || [{ title: "" }];
 
       setMenu(
-        <Menu>
-          <Menu.Item
-            key={0}
-            style={{ textAlign: "center" }}
-            onClick={() => setDropMenu("-- Choose Category --")}
-          >
-            -- Choose Category --
-          </Menu.Item>
+        <>
           {titles.map((title, index) => (
-            <Menu.Item
-              key={index + 1}
-              style={{ textAlign: "center" }}
-              onClick={(e) => {
-                setDropMenu(
-                  e.domEvent.currentTarget.textContent ||
-                    "-- Choose Category --"
-                );
-              }}
-            >
+            <Select.Option key={index + 1} value={title.title}>
               {title.title}
-            </Menu.Item>
+            </Select.Option>
           ))}
-        </Menu>
+        </>
       );
     }
   }, [loading, error, data]);
@@ -86,15 +74,47 @@ const Add: React.FC<props> = ({ wing }) => {
   return (
     <>
       <Title level={3} style={{ textAlign: "center" }}>
-        Add Resource
+        ADD RESOURCE
       </Title>
+      {console.log(dropMenu, heading)}
+      <Form labelCol={{ span: 6 }} wrapperCol={{ span: 14 }} layout="vertical">
+        <Form.Item
+          label="Heading"
+          name="headingDrop"
+          rules={heading === ""? [{ required: true, message: "Please input Heading" }]: []}
+        >
+          <Select
+            placeholder="-- Choose Heading --"
+            allowClear
+            value={dropMenu}
+            onChange={(e) => {
+              setDropMenu(e);
+            }}
+            disabled={heading === "" ? false : true}
+          >
+            {/* <Select.Option value="demo">Demo</Select.Option>1 */}
+            {menu}
+          </Select>
+        </Form.Item>
+        <Title level={5}>OR</Title>
+        <Form.Item name="headingInput" rules= {dropMenu === undefined? [{ required: true, message: "Please input Heading" }]: []}>
+          <Input
+            placeholder="Enter New Heading"
+            allowClear
+            disabled={dropMenu === undefined ? false : true}
+            value={heading}
+            onChange={(e) => {
+              setHeading(e.target.value);
+            }}
+          />
+        </Form.Item>
 
-      <Form
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-      >
-        <Form.Item label="Heading">
+        {/* <Form.Item
+          label="Heading"
+          rules={[
+            { required: true, message: "Please choose or enter a Heading" },
+          ]}
+        >
           <Dropdown overlay={menu} disabled={heading === "" ? false : true}>
             <Button>
               {dropMenu}
@@ -115,24 +135,47 @@ const Add: React.FC<props> = ({ wing }) => {
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
           />
-        </Form.Item>
-        <Form.Item label="Name">
+        </Form.Item> */}
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Please enter a Name" }]}
+        >
           <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            // value={name}
+            // onChange={(e) => setName(e.target.value)}
             allowClear
           />
         </Form.Item>
 
-        <Form.Item label="Link">
+        <Form.Item
+          label="URL"
+          name="url"
+          rules={[{ required: true, message: "Please enter a URL" }]}
+        >
           <Input
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
+            // value={link}
+            // onChange={(e) => setLink(e.target.value)}
             allowClear
           />
         </Form.Item>
+        <Form.Item name="check" valuePropName="checked">
+          <Checkbox onChange={(e) => setDisabled(!e.target.checked)}>
+            I have Read and Verified Information
+          </Checkbox>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            disabled={disabled}
+            loading={loading}
+            type="primary"
+            htmlType="submit"
+          >
+            submit
+          </Button>
+        </Form.Item>
       </Form>
-      <div style={{ textAlign: "center" }}>
+      {/* <div style={{ textAlign: "center" }}>
         <Button type="primary" className="m-2">
           Save
         </Button>
@@ -147,7 +190,7 @@ const Add: React.FC<props> = ({ wing }) => {
         >
           Cancel
         </Button>
-      </div>
+      </div> */}
     </>
   );
 };
