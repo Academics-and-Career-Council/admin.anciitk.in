@@ -8,8 +8,7 @@ const ArgonClient = new ApolloClient({
 });
 
 export const ResourceClient = new ApolloClient({
-  // uri: process.env.NEXT_PUBLIC_RADON_URL,
-  uri: "http://127.0.0.1:8000/graphql",
+  uri: process.env.NEXT_PUBLIC_RADON_URL,
   cache: new InMemoryCache(),
   headers: {
     "Content-Type": "application/json"
