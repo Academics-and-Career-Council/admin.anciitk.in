@@ -7,11 +7,11 @@
 import { NewObject, Category } from "./../../../__generated__/globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: AddObject
+// GraphQL mutation operation: EditObject
 // ====================================================
 
 
-export interface AddObject_addObject {
+export interface EditObject_editObject {
   __typename: "Object";
   id: string;
   name: string;
@@ -19,12 +19,11 @@ export interface AddObject_addObject {
   link: string;
 }
 
-export interface AddObject {
-  addObject: AddObject_addObject;
+export interface EditObject {
+  editObject: EditObject_editObject;
 }
 
-export interface AddObjectVariables {
+export interface EditObjectVariables {
   data: NewObject;
-  heading: string;
-  exists: boolean;
+  id: string;
 }

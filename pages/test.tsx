@@ -1,4 +1,4 @@
 import "antd/dist/antd.css";
-import Add from "../components/resource/Add";
+import TestDrop from "../components/resource/TestDrop";
 
-export default Add;
+export default TestDrop;

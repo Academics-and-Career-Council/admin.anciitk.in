@@ -8,20 +8,12 @@ import { useEffect, useState } from "react";
 
 import Submenu from "./Submenu";
 
-import TagsOutlined from "@ant-design/icons/TagsOutlined";
-import PlusCircleOutlined from "@ant-design/icons/PlusCircleOutlined";
-import EditOutlined from "@ant-design/icons/EditOutlined";
-import DeleteOutlined from "@ant-design/icons/DeleteOutlined";
-import { route } from "next/dist/server/router";
+import {BookOutlined , PlusCircleOutlined, EditOutlined, DeleteOutlined}from "@ant-design/icons";
+
+import { toTitleCase } from "../../pkg/helpers";
 const { Item, SubMenu } = Menu;
 
 type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
-
-const toTitleCase = (str: string) => {
-  return str.replace(/\w\S*/g, (txt: string) => {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-};
 
 const getMode = (key: string) => {
   let modeKey = key[1];
@@ -45,25 +37,6 @@ const getMode = (key: string) => {
 
 const getWing = (key: string, wingList: string[]) => {
   let wingKey = key[0];
-  // let wing = "";
-  // switch (wingKey) {
-  //   case "1":
-  //     wing = "career development";
-  //     break;
-  //   case "2":
-  //     wing = "wing2";
-  //     break;
-  //   case "3":
-  //     wing = "wing3";
-  //     break;
-  //   case "4":
-  //     wing = "wing4";
-  //     break;
-  //   default:
-  //     wing = "invalid";
-  //     break;
-  // }
-  // return wing;
   return wingList[parseInt(wingKey) - 1];
 };
 
@@ -72,14 +45,6 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
   const wingList = wings.map((wing) => wing.name);
   const [selectedWing, setSelectedWing] = useState("invalid");
   const [selectedMode, setSelectedMode] = useState("invalid");
-  // const [result, setResult] = useState<GetWings["getWings"]>([]);
-
-  // useEffect(() => {
-  //   let copy: DeepWriteable<GetWings["getWings"]> = JSON.parse(
-  //     JSON.stringify(wings)
-  //   );
-  //   setResult(copy);
-  // }, [wings]);
 
   useEffect(() => {
     const wing = router.query.wing;
@@ -119,7 +84,7 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
         {wings.map((wing, index) => (
           <SubMenu
             key={index}
-            icon={<TagsOutlined />}
+            icon={<BookOutlined />}
             title={toTitleCase(wing.name)}
           >
             <Item key={`${index + 1}1`} icon={<PlusCircleOutlined />}>

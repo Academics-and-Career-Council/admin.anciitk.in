@@ -5,11 +5,7 @@ import {
   getDataEdit_getResourcesByWing,
 } from "../../container/resource/__generated__/getDataEdit";
 import router from "next/router";
-const toTitleCase = (str: string) => {
-  return str.replace(/\w\S*/g, (txt: string) => {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-};
+import { toTitleCase } from "../../pkg/helpers";
 
 const Edit: React.FC<{ wing: string; data: getDataEdit_getResourcesByWing[] }> =
   ({ wing, data }) => {
