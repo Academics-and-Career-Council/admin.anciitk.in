@@ -4,7 +4,7 @@ export const toTitleCase = (str: string) => {
   });
 };
 
-export const getAddData = (addData: any) => {
+export const getAddData = (addData: any, order:string, wing:string) => {
   const data = {
     name: addData.name,
     category: "GDRIVE",
@@ -19,7 +19,7 @@ export const getAddData = (addData: any) => {
     heading = addData.headingDrop;
     exists = true;
   }
-  return { data, heading, exists };
+  return { data, heading, exists, order , wing};
 };
 
 export const getEditData = (formValues: any, givenData: any) => {

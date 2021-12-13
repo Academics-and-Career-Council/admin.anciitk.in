@@ -1,10 +1,18 @@
-import { Form, Input, Button, Checkbox, message } from "antd";
 import { getDocumentEdit_getDocument } from "../../container/resource/__generated__/getDocumentEdit";
+import {
+  getOrder,
+  getOrderVariables,
+  getOrder_getResourcesByWing,
+} from "../../actions/resource/__generated__/getOrder";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { useEffect, useState } from "react";
 import CustomDropdown from "./CustomDropdown";
-import { useMutation } from "@apollo/client";
-import { ADD_RESOURCE } from "../../actions/resource/AddButton";
-import { EDIT_RESOURCE } from "../../actions/resource/EditButton";
+import { useMutation, useQuery } from "@apollo/client";
+import addResource, {
+  ADD_RESOURCE,
+  GET_ORDER,
+} from "../../actions/resource/AddButton";
+import editResource from "../../actions/resource/EditButton";
 import { getAddData, getEditData } from "../../pkg/helpers";
 import router from "next/router";
 type dataType = {
@@ -18,56 +26,120 @@ interface props {
   data: getDocumentEdit_getDocument | dataType | undefined;
   action: "edit" | "add";
   wing: string;
-  id? : string
+  id?: string;
 }
 
-const ResourceForm: React.FC<props> = ({ data, action, wing, id}) => {
+const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
 
-  const [addObject, { data: addData, loading:loadingAdd, error:errorAdd }] =
-    useMutation(ADD_RESOURCE);
-  const [editObject, {data:editData, loading:loadingEdit, error:errorEdit}] = useMutation(EDIT_RESOURCE)
+  // const [addObject, { data: addData, loading: loadingAdd, error: errorAdd }] =
+  //   useMutation(ADD_RESOURCE);
+  // const [
+  //   editObject,
+  //   { data: editData, loading: loadingEdit, error: errorEdit },
+  // ] = useMutation(EDIT_RESOURCE);
 
+  const {
+    data: orderData,
+    error: orderError,
+    loading: orderLoading,
+  } = useQuery<getOrder>(GET_ORDER, {
+    variables: { wing: wing },
+  });
+  // const onFinish = (values: any) => {
+  //   if (action === "add") {
+  //     addObject({
+  //       variables: getAddData(
+  //         values,
+  //         String(orderData?.getResourcesByWing.length)
+  //       ),
+  //       refetchQueries: "active",
+  //     });
+  //     if (loadingAdd) {
+  //       setButtonLoading(true);
+  //     }
+  //     if (errorAdd) {
+  //       message.error(`Oops, There was an error . Please try again`, undefined);
+  //     } else {
+  //       form.resetFields();
+  //       message.success("Resource Added Successfully", undefined, () => {
+  //         router.push(
+  //           `/resource/?wing=${router.query.wing}&mode=add`,
+  //           undefined,
+  //           { shallow: false }
+  //         );
+  //       });
+  //     }
+  //   } else if (action === "edit") {
+  //     const formValues = form.getFieldsValue();
+  //     // console.log(formValues.name, formValues.link)
+  //     // console.log(data.category, data.id)
+  //     editObject({
+  //       variables: getEditData(formValues, data),
+  //       refetchQueries: "active",
+  //     });
+  //     if (loadingEdit) {
+  //       setButtonLoading(true);
+  //     }
+  //     if (errorEdit) {
+  //       message.error(`Oops, There was an error . Please try again`, undefined);
+  //     } else {
+  //       message.success("Resource Edited Successfully", undefined, () => {
+  //         router.push(
+  //           `/resource/?wing=${router.query.wing}&mode=edit`,
+  //           undefined,
+  //           { shallow: false }
+  //         );
+  //       });
+  //     }
+  //   }
+  // };
 
   const onFinish = (values: any) => {
+    setButtonLoading(true);
+
     if (action === "add") {
-      addObject({ variables: getAddData(values), refetchQueries: "active" });
-      if (loadingAdd) {
-        setButtonLoading(true);
-      }
-      if (errorAdd) {
-        message.error(`Oops, There was an error . Please try again`, undefined);
-      } else {
-        form.resetFields();
-        message.success("Resource Added Successfully", undefined, () => {
+      const addData = getAddData(
+        values,
+        String(orderData?.getResourcesByWing.length),
+        wing
+      );
+      console.log(addData)
+      addResource(addData)
+        .then((data) => {
+          message.success("Resource Added Successfully");
+          setButtonLoading(false);
           router.push(
-            `/resource/?wing=${router.query.wing}&mode=add`,
+            `/resource?wing=${router.query.wing}&mode=edit`,
             undefined,
-            { shallow: false }
+            { shallow: true }
           );
+        })
+        .catch((err) => {
+          console.log(err);
+          message.error(err.message);
+          setButtonLoading(false);
         });
-      }
     } else if (action === "edit") {
-      const formValues = form.getFieldsValue()
-      // console.log(formValues.name, formValues.link)
-      // console.log(data.category, data.id)
-      editObject({variables:getEditData(formValues, data), refetchQueries:"active" })
-      if (loadingEdit) {
-        setButtonLoading(true);
-      }
-      if (errorEdit) {
-        message.error(`Oops, There was an error . Please try again`, undefined);
-      } else {
-        message.success("Resource Edited Successfully", undefined, () => {
+      const formValues = form.getFieldsValue();
+      const editData = getEditData(formValues, data);
+      editResource(editData)
+        .then((data) => {
+          message.success("Resource Edited Successfully");
+          setButtonLoading(false);
           router.push(
-            `/resource/?wing=${router.query.wing}&mode=edit`,
+            `/resource?wing=${router.query.wing}&mode=edit`,
             undefined,
-            { shallow: false }
+            { shallow: true }
           );
+        })
+        .catch((err) => {
+          console.log(err);
+          message.error(err.message);
+          setButtonLoading(false);
         });
-      }
     }
   };
 

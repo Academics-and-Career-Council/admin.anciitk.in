@@ -27,4 +27,5 @@ export interface AddObjectVariables {
   data: NewObject;
   heading: string;
   exists: boolean;
+  order: string;
 }
