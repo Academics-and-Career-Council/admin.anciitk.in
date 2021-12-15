@@ -32,7 +32,6 @@ const Edit: React.FC<{ wing: string; data: getDataEdit_getResourcesByWing[] }> =
     const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 
     const onExpand = (expandedKeysValue: React.Key[]) => {
-      console.log("onExpand", expandedKeysValue);
       // if not set autoExpandParent to false, if children expanded, parent can not collapse.
       // or, you can remove all expanded children keys.
       setExpandedKeys(expandedKeysValue);
@@ -40,7 +39,6 @@ const Edit: React.FC<{ wing: string; data: getDataEdit_getResourcesByWing[] }> =
     };
 
     const onSelect = (selectedKeysValue: React.Key[], info: any) => {
-      console.log("onSelect", info);
       if (info.node.pos.split("-").length === 4) {
         router.push(
           `/resource?wing=${wing}&mode=edit&id=${info.node.key}`,

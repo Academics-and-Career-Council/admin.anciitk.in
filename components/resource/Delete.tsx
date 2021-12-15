@@ -6,6 +6,10 @@ import {
 } from "../../container/resource/__generated__/getDataEdit";
 import router from "next/router";
 import { toTitleCase } from "../../pkg/helpers";
+import { Button, Form, Modal, message, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { getDeleteData } from "../../pkg/helpers";
+import deleteResource from "../../actions/resource/delete";
 
 const Delete: React.FC<{
   wing: string;
@@ -32,39 +36,84 @@ const Delete: React.FC<{
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>(["0"]);
   const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
   const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const confirm = Modal.confirm;
 
   const onExpand = (expandedKeysValue: React.Key[]) => {
-    console.log("onExpand", expandedKeysValue);
     // if not set autoExpandParent to false, if children expanded, parent can not collapse.
     // or, you can remove all expanded children keys.
     setExpandedKeys(expandedKeysValue);
     setAutoExpandParent(false);
   };
 
+  const onConfirmDelete = () => {};
+
   const onSelect = (selectedKeysValue: React.Key[], info: any) => {
-    console.log("onSelect", info);
-    if (info.node.pos.split("-").length === 4) {
-      router.push(
-        `/resource?wing=${wing}&mode=edit&id=${info.node.key}`,
-        undefined,
-        { shallow: false }
-      );
-    }
     setSelectedKeys(selectedKeysValue);
+    console.log(info.node.pos);
+    if (info.node.pos.split("-").length === 4) {
+      const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+      // router.push(
+      //   `/resource?wing=${wing}&mode=edit&id=${info.node.key}`,
+      //   undefined,
+      //   { shallow: false }
+      // );
+      confirm({
+        title: loading ? (
+          <Spin indicator={antIcon} />
+        ) : (
+          "Dou you want to delete?"
+        ),
+        onOk() {
+          setLoading(true);
+          console.log(getDeleteData(
+            info.node.pos,
+            String(selectedKeysValue[0]),
+            data
+          ))
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(
+                deleteResource(
+                  getDeleteData(
+                    info.node.pos,
+                    String(selectedKeysValue[0]),
+                    data
+                  )
+                )
+                  .then((data) => {
+                    message.success("Resource Deleted Successfully");
+                    setLoading(false);
+                    router.push(
+                      `/resource?wing=${router.query.wing}&mode=delete`,
+                      undefined,
+                      { shallow: true }
+                    );
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    message.error(err.message);
+                    setLoading(false);
+                  })
+              );
+            }, 300);
+          });
+        },
+      });
+    }
   };
-  const onCheck = (a: any, b: any) => {
-    console.log(a);
-    console.log(b);
-  };
+  // const onCheck = (keys: any, info: any) => {
+  //   getDeleteData(info, data);
+  // };
 
   return (
     <Tree
-      checkable
+      // checkable
       onExpand={onExpand}
       expandedKeys={expandedKeys}
       autoExpandParent={autoExpandParent}
       onSelect={onSelect}
-      onCheck={onCheck}
+      // onCheck={onCheck}
       selectedKeys={selectedKeys}
       treeData={treeData}
     />

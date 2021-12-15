@@ -28,4 +28,5 @@ export interface AddObjectVariables {
   heading: string;
   exists: boolean;
   order: string;
+  wing: string;
 }
