@@ -65,6 +65,8 @@ export const getDeleteData = (
   // objectIds = objectIds.map((item: any) => item.key);
   // console.log(objectIds);
   // console.log(delList);
-  const headingId = data[parseInt(pos)].id
+  // console.log(data)
+  // console.log(pos[4])
+  const headingId = data[parseInt(pos[4])].id
   return {headingId, objectId}
 };

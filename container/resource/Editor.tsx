@@ -17,7 +17,6 @@ const EDIT_DOCUMENT = gql`
 `;
 
 const EditorContainer: React.FC<{ id: string }> = ({ id }) => {
-  console.log(typeof(id))
   const { loading, error, data } = useQuery<getDocumentEdit>(EDIT_DOCUMENT, {
     variables: { id: id },
     nextFetchPolicy:"network-only"

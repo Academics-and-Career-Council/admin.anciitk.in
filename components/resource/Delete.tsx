@@ -58,19 +58,19 @@ const Delete: React.FC<{
       //   undefined,
       //   { shallow: false }
       // );
+      console.log(getDeleteData(
+        info.node.pos,
+        String(selectedKeysValue[0]),
+        data
+      ))
       confirm({
         title: loading ? (
           <Spin indicator={antIcon} />
         ) : (
           "Dou you want to delete?"
-        ),
+          ),
         onOk() {
           setLoading(true);
-          console.log(getDeleteData(
-            info.node.pos,
-            String(selectedKeysValue[0]),
-            data
-          ))
           return new Promise((resolve) => {
             setTimeout(() => {
               resolve(

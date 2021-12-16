@@ -35,7 +35,7 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
   const change = () => {
     // for development purpose
     // console.log(form.getFieldsValue().headingDrop);
-    console.log(headingDisable, dropDisable)
+    // console.log(headingDisable, dropDisable)
     if (
       form.getFieldsValue().headingInput === "" &&
       form.getFieldsValue().headingDrop === undefined
@@ -67,7 +67,7 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
         </Select.Option>
       );
     else if (error) {
-      console.log(error);
+      // console.log(error);
       setMenu(
         <div style={{ textAlign: "center", backgroundColor: "white" }}>
           <CloseCircleOutlined />

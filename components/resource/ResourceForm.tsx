@@ -106,7 +106,7 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
         String(orderData?.getResourcesByWing.length),
         wing
       );
-      console.log(addData)
+      // console.log(addData)
       addResource(addData)
         .then((data) => {
           message.success("Resource Added Successfully");
@@ -173,7 +173,6 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
       >
         <Input
           type={"url"}
-          onChange={() => console.log(form.getFieldsValue())}
         />
       </Form.Item>
       <Form.Item name="check" valuePropName="checked">
