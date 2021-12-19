@@ -2,6 +2,8 @@ import { RemoveJob, RemoveJobVariables } from "./__generated__/RemoveJob";
 import { gql, useMutation } from "@apollo/client";
 import { Button, message, Popconfirm, Typography } from "antd";
 import { useState } from "react";
+import { secured } from "react-abac";
+import { permissions } from "../../pkg/abac";
 
 const DELETE_JOB = gql`
   mutation RemoveJob($id: ID!) {
@@ -35,11 +37,12 @@ const DeleteJobButton: React.FC<RemoveJobVariables> = ({ id }) => {
       }
       onConfirm={() =>
         commit()
-          .then(() =>
+          .then(() => {
             message.success(
               "Job removed Successfully with all the applications associated with it"
-            )
-          )
+            );
+            setVisible(false);
+          })
           .catch((err) => {
             message.error(err.message);
             console.log(err);
@@ -52,5 +55,11 @@ const DeleteJobButton: React.FC<RemoveJobVariables> = ({ id }) => {
     </Popconfirm>
   );
 };
+
+secured({
+  permissions: permissions.DELETE_JOB,
+  mapPropsToData: (props) => props,
+  noAccess: () => <div />,
+});
 
 export default DeleteJobButton;
