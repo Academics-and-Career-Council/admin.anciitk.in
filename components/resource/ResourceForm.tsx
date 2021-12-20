@@ -4,7 +4,7 @@ import {
   getOrderVariables,
   getOrder_getResourcesByWing,
 } from "../../actions/resource/__generated__/getOrder";
-import { Form, Input, Button, Checkbox, message } from "antd";
+import { Form, Input, Button, Checkbox, message, Typography } from "antd";
 import { useEffect, useState } from "react";
 import CustomDropdown from "./CustomDropdown";
 import { useMutation, useQuery } from "@apollo/client";
@@ -15,6 +15,9 @@ import addResource, {
 import editResource from "../../actions/resource/EditButton";
 import { getAddData, getEditData } from "../../pkg/helpers";
 import router from "next/router";
+import {rules} from "../../pkg/abac"
+const { Title } = Typography;
+
 type dataType = {
   headingDrop: string | undefined;
   headingInput: string;
@@ -34,13 +37,6 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
 
-  // const [addObject, { data: addData, loading: loadingAdd, error: errorAdd }] =
-  //   useMutation(ADD_RESOURCE);
-  // const [
-  //   editObject,
-  //   { data: editData, loading: loadingEdit, error: errorEdit },
-  // ] = useMutation(EDIT_RESOURCE);
-
   const {
     data: orderData,
     error: orderError,
@@ -48,54 +44,6 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
   } = useQuery<getOrder>(GET_ORDER, {
     variables: { wing: wing },
   });
-  // const onFinish = (values: any) => {
-  //   if (action === "add") {
-  //     addObject({
-  //       variables: getAddData(
-  //         values,
-  //         String(orderData?.getResourcesByWing.length)
-  //       ),
-  //       refetchQueries: "active",
-  //     });
-  //     if (loadingAdd) {
-  //       setButtonLoading(true);
-  //     }
-  //     if (errorAdd) {
-  //       message.error(`Oops, There was an error . Please try again`, undefined);
-  //     } else {
-  //       form.resetFields();
-  //       message.success("Resource Added Successfully", undefined, () => {
-  //         router.push(
-  //           `/resource/?wing=${router.query.wing}&mode=add`,
-  //           undefined,
-  //           { shallow: false }
-  //         );
-  //       });
-  //     }
-  //   } else if (action === "edit") {
-  //     const formValues = form.getFieldsValue();
-  //     // console.log(formValues.name, formValues.link)
-  //     // console.log(data.category, data.id)
-  //     editObject({
-  //       variables: getEditData(formValues, data),
-  //       refetchQueries: "active",
-  //     });
-  //     if (loadingEdit) {
-  //       setButtonLoading(true);
-  //     }
-  //     if (errorEdit) {
-  //       message.error(`Oops, There was an error . Please try again`, undefined);
-  //     } else {
-  //       message.success("Resource Edited Successfully", undefined, () => {
-  //         router.push(
-  //           `/resource/?wing=${router.query.wing}&mode=edit`,
-  //           undefined,
-  //           { shallow: false }
-  //         );
-  //       });
-  //     }
-  //   }
-  // };
 
   const onFinish = (values: any) => {
     setButtonLoading(true);
@@ -160,20 +108,18 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
         <CustomDropdown wing={wing} Form={Form} form={form} />
       ) : null}
       <Form.Item
-        label="Name"
+        label={<Title level={5}>Name</Title>}
         name="name"
         rules={[{ required: true, message: "Please enter a Name" }]}
       >
         <Input autoFocus />
       </Form.Item>
       <Form.Item
-        label="URL"
+        label={<Title level={5}>URL</Title>}
         name="link"
         rules={[{ required: true, message: "Please enter a URL" }]}
       >
-        <Input
-          type={"url"}
-        />
+        <Input type={"url"} />
       </Form.Item>
       <Form.Item name="check" valuePropName="checked">
         <Checkbox onChange={(e) => setDisabled(!e.target.checked)}>

@@ -8,9 +8,16 @@ import { useEffect, useState } from "react";
 
 import Submenu from "./Submenu";
 
-import {BookOutlined , PlusCircleOutlined, EditOutlined, DeleteOutlined}from "@ant-design/icons";
+import {
+  BookOutlined,
+  PlusCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 
 import { toTitleCase } from "../../pkg/helpers";
+import { AllowedTo } from "react-abac";
+import { permissions } from "../../pkg/abac";
 const { Item, SubMenu } = Menu;
 
 type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
@@ -48,13 +55,13 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
 
   useEffect(() => {
     const wing = router.query.wing;
-		if (typeof(wing) === "string"){
-			setSelectedWing(wing);
-		}
-		const mode = router.query.mode;
-		if (typeof(mode) === "string"){
-			setSelectedMode(mode);
-		}
+    if (typeof wing === "string") {
+      setSelectedWing(wing);
+    }
+    const mode = router.query.mode;
+    if (typeof mode === "string") {
+      setSelectedMode(mode);
+    }
   }, [router.query]);
   const itemStyle = { display: "flex", alignItems: "center" };
 
@@ -87,15 +94,21 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
             icon={<BookOutlined />}
             title={toTitleCase(wing.name)}
           >
-            <Item key={`${index + 1}1`} icon={<PlusCircleOutlined />}>
-              Add Resource
-            </Item>
-            <Item key={`${index + 1}2`} icon={<EditOutlined />}>
-              Edit Resources
-            </Item>
-            <Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
-              Delete Resources
-            </Item>
+            <AllowedTo perform={permissions.ADD_BUTTON} no={undefined}>
+              <Item key={`${index + 1}1`} icon={<PlusCircleOutlined />}>
+                Add Resource
+              </Item>
+            </AllowedTo>
+            <AllowedTo perform={permissions.EDIT_BUTTON} no={undefined}>
+              <Item key={`${index + 1}2`} icon={<EditOutlined />}>
+                Edit Resources
+              </Item>
+            </AllowedTo>
+            <AllowedTo perform={permissions.DELETE_BUTTON} no={undefined}>
+              <Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
+                Delete Resources
+              </Item>
+            </AllowedTo>
           </SubMenu>
         ))}
       </Menu>

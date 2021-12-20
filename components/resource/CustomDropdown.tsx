@@ -92,7 +92,7 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
   return (
     <>
       <Form.Item
-        label="Heading"
+        label={<Title level={5}>Heading</Title>}
         name="headingDrop"
         rules={
           dropDisable
@@ -110,7 +110,7 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
           {menu}
         </Select>
       </Form.Item>
-      <Title level={5}>OR</Title>
+      <Title level={5}>or</Title>
       <Form.Item
         name="headingInput"
         rules={
