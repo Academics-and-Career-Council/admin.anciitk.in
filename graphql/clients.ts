@@ -11,7 +11,6 @@ export const CareerClient = new ApolloClient({
   cache: new InMemoryCache(),
   headers: {
     "Content-Type": "application/json",
-    email: "vgoyal20@iitk.ac.in",
   },
   defaultOptions: {
     query: {
@@ -35,18 +34,18 @@ export const ResourceClient = new ApolloClient({
     query: {
       fetchPolicy: "network-only",
       errorPolicy: 'all'
+    },
+    mutate: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all'
     }
   }
 })
 
 const GrapQLClient = {
   Argon: ArgonClient,
-<<<<<<< HEAD
   Resource: ResourceClient
 }
-=======
-  Career: CareerClient,
-};
->>>>>>> feat/career-portal
+
 
 export default GrapQLClient;
