@@ -8,7 +8,7 @@ import LogoutOutlined from "@ant-design/icons/LoginOutlined";
 import { secured } from "react-abac";
 
 import Navbar from "./Navbar";
-import getCurrentComponent from "../../pkg/component";
+import getCurrentComponent from "../../pkg/components.careers.";
 import { permissions } from "../../pkg/abac";
 import ResJSX from "../ResJSX";
 

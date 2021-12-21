@@ -6,7 +6,7 @@ import { Layout, Menu, Typography, Breadcrumb } from "antd";
 import HomeOutlined from "@ant-design/icons/HomeOutlined";
 import LogoutOutlined from "@ant-design/icons/LoginOutlined";
 import "antd/dist/antd.css";
-import getCurrentComponent from "../pkg/components";
+import getCurrentComponent from "../pkg/components.resources";
 
 const { Title } = Typography;
 const itemStyle = { display: "flex", alignItems: "center" };
@@ -17,16 +17,13 @@ import { ApolloProvider } from "@apollo/client";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const toTitleCase= (str:string|string[] | undefined) => {
-  if(typeof(str)==="string") {
-    return str.replace(
-      /\w\S*/g,
-      (txt:string) => {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }
-    );
+const toTitleCase = (str: string | string[] | undefined) => {
+  if (typeof str === "string") {
+    return str.replace(/\w\S*/g, (txt: string) => {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   }
-}
+};
 
 const SiderDemo: React.FC = () => {
   const router = useRouter();
@@ -65,7 +62,9 @@ const SiderDemo: React.FC = () => {
                 zIndex: 100,
               }}
             >
-              <Title className="mt-6" level={2}>Dashboard</Title>
+              <Title className="mt-6" level={2}>
+                Dashboard
+              </Title>
               <Menu
                 mode="horizontal"
                 theme="light"
@@ -100,12 +99,16 @@ const SiderDemo: React.FC = () => {
                 Bill is a cat.
               </div>
             </Content> */}
-            <Content className="m-4 bg-white" >
+            <Content className="m-4 bg-white">
               <div className="m-4 ml-8 mb-0">
-              <Breadcrumb >
-                <Breadcrumb.Item >{toTitleCase(router.query["wing"])}</Breadcrumb.Item>
-                <Breadcrumb.Item>{toTitleCase(router.query["mode"])}</Breadcrumb.Item>
-              </Breadcrumb>
+                <Breadcrumb>
+                  <Breadcrumb.Item>
+                    {toTitleCase(router.query["wing"])}
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item>
+                    {toTitleCase(router.query["mode"])}
+                  </Breadcrumb.Item>
+                </Breadcrumb>
               </div>
               <div style={{ padding: 24, minHeight: 360 }}>
                 {typeof router.query["wing"] === "string" &&
