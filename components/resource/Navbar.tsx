@@ -5,6 +5,8 @@ import {
 import { Menu } from "antd";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { recoilSessionState } from "../../pkg/recoilDeclarations";
 
 import Submenu from "./Submenu";
 
@@ -16,8 +18,7 @@ import {
 } from "@ant-design/icons";
 
 import { toTitleCase } from "../../pkg/helpers";
-import { AllowedTo } from "react-abac";
-import { permissions } from "../../pkg/abac";
+import { Role } from "@anciitk/xenon-js";
 const { Item, SubMenu } = Menu;
 
 type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
@@ -52,6 +53,8 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
   const wingList = wings.map((wing) => wing.name);
   const [selectedWing, setSelectedWing] = useState("invalid");
   const [selectedMode, setSelectedMode] = useState("invalid");
+  const [session] = useRecoilState(recoilSessionState);
+  const role = session?.user.role;
 
   useEffect(() => {
     const wing = router.query.wing;
@@ -94,21 +97,28 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
             icon={<BookOutlined />}
             title={toTitleCase(wing.name)}
           >
-            <AllowedTo perform={permissions.ADD_BUTTON} no={undefined}>
+            {role === Role.Admin || Role.Manager || Role.Secretary ? (
               <Item key={`${index + 1}1`} icon={<PlusCircleOutlined />}>
                 Add Resource
               </Item>
-            </AllowedTo>
-            <AllowedTo perform={permissions.EDIT_BUTTON} no={undefined}>
+            ) : null}
+            {role === Role.Admin || Role.Manager || Role.Secretary ? (
               <Item key={`${index + 1}2`} icon={<EditOutlined />}>
                 Edit Resources
               </Item>
-            </AllowedTo>
-            <AllowedTo perform={permissions.DELETE_BUTTON} no={undefined}>
-              <Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
-                Delete Resources
-              </Item>
-            </AllowedTo>
+            ) : null}
+            {role === Role.Admin ? (<Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
+              Delete Resources
+            </Item>): null}
+            {/* <Item key={`${index + 1}1`} icon={<PlusCircleOutlined />}>
+              Add Resource
+            </Item> */}
+            {/* <Item key={`${index + 1}2`} icon={<EditOutlined />}>
+              Edit Resources
+            </Item> */}
+            {/* <Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
+              Delete Resources
+            </Item> */}
           </SubMenu>
         ))}
       </Menu>

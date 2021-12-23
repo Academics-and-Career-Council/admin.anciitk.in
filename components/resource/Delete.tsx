@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tree from "antd/lib/tree";
 import {
   getDataEdit,
@@ -6,7 +6,7 @@ import {
 } from "../../container/resource/__generated__/getDataEdit";
 import router from "next/router";
 import { toTitleCase } from "../../pkg/helpers";
-import { Button, Form, Modal, message, Spin } from "antd";
+import { Modal, message, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { getDeleteData } from "../../pkg/helpers";
 import deleteResource from "../../actions/resource/delete";
@@ -53,22 +53,17 @@ const Delete: React.FC<{
     console.log(info.node.pos);
     if (info.node.pos.split("-").length === 4) {
       const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-      // router.push(
-      //   `/resource?wing=${wing}&mode=edit&id=${info.node.key}`,
-      //   undefined,
-      //   { shallow: false }
-      // );
-      console.log(getDeleteData(
-        info.node.pos,
-        String(selectedKeysValue[0]),
-        data
-      ))
+      // console.log(getDeleteData(
+      //   info.node.pos,
+      //   String(selectedKeysValue[0]),
+      //   data
+      // ))
       confirm({
         title: loading ? (
           <Spin indicator={antIcon} />
         ) : (
           "Dou you want to delete?"
-          ),
+        ),
         onOk() {
           setLoading(true);
           return new Promise((resolve) => {

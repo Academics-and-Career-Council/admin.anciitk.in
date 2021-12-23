@@ -10,6 +10,7 @@ const ArgonClient = new ApolloClient({
 export const ResourceClient = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_RADON_URL,
   cache: new InMemoryCache(),
+  credentials: "include",
   headers: {
     "Content-Type": "application/json"
   },

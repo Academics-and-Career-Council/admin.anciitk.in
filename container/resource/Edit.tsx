@@ -4,6 +4,9 @@ import Loader from "../../components/Loader";
 import Result from "antd/lib/result";
 import Edit from "../../components/resource/Edit";
 import { getDataEdit } from "./__generated__/getDataEdit";
+import { secured } from "react-abac";
+import { permissions } from "../../pkg/abac";
+import AccessDenied from "../../components/resource/Denied";
 
 const EDIT_RESOURCE = gql`
   query getDataEdit($wing: String!) {
@@ -22,8 +25,11 @@ const EDIT_RESOURCE = gql`
   }
 `;
 
+interface props {
+  wing: string;
+}
+
 const EditContainer: React.FC<{ wing: string }> = ({ wing }) => {
-  const [treeItems, setTreeItems] = useState([]);
   const { loading, error, data } = useQuery<getDataEdit>(EDIT_RESOURCE, {
     variables: { wing: wing },
   });
@@ -36,4 +42,11 @@ const EditContainer: React.FC<{ wing: string }> = ({ wing }) => {
   return <Edit wing={wing} data={data?.getResourcesByWing || []} />;
 };
 
-export default EditContainer;
+// export default EditContainer;
+export default secured({
+  permissions: permissions.DELETE_BUTTON,
+  mapPropsToData: (props: props) => props.wing,
+  noAccess: () => {
+    return <AccessDenied />;
+  },
+})(EditContainer);

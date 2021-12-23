@@ -4,6 +4,10 @@ import Loader from "../../components/Loader";
 import Result from "antd/lib/result";
 import Editor from "../../components/resource/ResourceForm";
 import { getDocumentEdit } from "./__generated__/getDocumentEdit";
+import { secured } from "react-abac";
+import { permissions } from "../../pkg/abac";
+import AccessDenied from "../../components/resource/Denied"
+import EditContainer from "./Edit";
 
 const EDIT_DOCUMENT = gql`
   query getDocumentEdit($id: String!) {
@@ -16,7 +20,11 @@ const EDIT_DOCUMENT = gql`
   }
 `;
 
-const EditorContainer: React.FC<{ id: string }> = ({ id }) => {
+interface props {
+  id: string
+}
+
+const EditorContainer: React.FC<props> = ({id}) => {
   const { loading, error, data } = useQuery<getDocumentEdit>(EDIT_DOCUMENT, {
     variables: { id: id },
     nextFetchPolicy:"network-only"
@@ -33,4 +41,11 @@ const EditorContainer: React.FC<{ id: string }> = ({ id }) => {
   return <Editor data={data?.getDocument} action="edit" wing="invalid"/>
 };
 
-export default EditorContainer;
+// export default EditorContainer;
+export default secured({
+  permissions: permissions.EDIT_BUTTON,
+  mapPropsToData: (props:props)=> props.id,
+  noAccess: () => {
+    return <AccessDenied />;
+  },
+})(EditorContainer);

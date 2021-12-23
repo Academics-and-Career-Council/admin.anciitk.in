@@ -32,9 +32,10 @@ const ResourcePage: React.FC = () => {
   const router = useRouter();
   const [collapsed, setCollapse] = useState(false);
   const [session] = useRecoilState(recoilSessionState);
+  // if (!session) {
+  //   router.push("/?next=resource", undefined, {shallow:true});
+  // }
   const logoutUrl = session?.logoutUrl;
-  const UserName = session?.user.name;
-  const role = session?.user.role;
 
   return (
     <>

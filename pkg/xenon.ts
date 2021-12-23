@@ -1,3 +1,3 @@
 import { Xenon } from "@anciitk/xenon-js"
-const xenon = new Xenon(`${process.env.REACT_APP_PUBLIC_XENON_BASE_URL}`)
+const xenon = new Xenon(`${process.env.NEXT_PUBLIC_XENON_BASE_URL}`)
 export { xenon }

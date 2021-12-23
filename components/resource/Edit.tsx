@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tree from "antd/lib/tree";
 import {
   getDataEdit,
@@ -42,7 +42,8 @@ const Edit: React.FC<{ wing: string; data: getDataEdit_getResourcesByWing[] }> =
       if (info.node.pos.split("-").length === 4) {
         router.push(
           `/resource?wing=${wing}&mode=edit&id=${info.node.key}`,
-          undefined, {shallow:false}
+          undefined,
+          { shallow: true }
         );
       }
       setSelectedKeys(selectedKeysValue);
@@ -61,3 +62,10 @@ const Edit: React.FC<{ wing: string; data: getDataEdit_getResourcesByWing[] }> =
   };
 
 export default Edit;
+// export default secured({
+//   permissions: permissions.ADD_BUTTON,
+//   mapPropsToData: (props) => props,
+//   noAccess: () => {
+//     return <AccessDenied />;
+//   },
+// })(Edit);
