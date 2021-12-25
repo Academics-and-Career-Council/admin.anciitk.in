@@ -3,7 +3,7 @@ import { secured } from "react-abac";
 import { Button } from "antd";
 import Link from "next/link";
 import styles from "../styles/admin.module.css";
-import { permissions } from "../pkg/abac";
+import { permissions } from "../pkg/abac.careers";
 
 const AdminAccess = () => {
   return (

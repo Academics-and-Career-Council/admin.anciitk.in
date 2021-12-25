@@ -2,7 +2,7 @@ import { useRecoilValue } from "recoil";
 import { AbacProvider } from "react-abac";
 
 import { recoilSessionState } from "../pkg/recoilDeclarations";
-import { rules } from "../pkg/abac";
+import { rules } from "../pkg/abac.careers";
 import CareerPage from "../components/career/CareerPage";
 import WithAuth from "../components/WithAuth";
 

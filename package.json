@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "eval $(grep 'PORT' .env.example.local) next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql/career-schema.json --target=typescript --tagName=gql",
-    "download-schema": "npx apollo service:download --endpoint=http://localhost:5000/graphql graphql/career-schema.json"
+    "download-schema": "npx apollo service:download --endpoint=http://localhost:4455/.argon/graphql graphql/career-schema.json"
   },
   "dependencies": {
     "@anciitk/kratos-verify-session": "2.0.0",

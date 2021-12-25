@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Layout, Menu, Typography } from "antd";
+import { Layout, Menu, Typography, Button } from "antd";
 import HomeOutlined from "@ant-design/icons/HomeOutlined";
 import LogoutOutlined from "@ant-design/icons/LoginOutlined";
 import { secured } from "react-abac";
+import { useRecoilState } from "recoil";
 
 import Navbar from "./Navbar";
 import getCurrentComponent from "../../pkg/component";
-import { permissions } from "../../pkg/abac";
+import { permissions } from "../../pkg/abac.careers";
 import ResJSX from "../ResJSX";
+import { recoilSessionState } from "../../pkg/recoilDeclarations";
+import logout from "../../pkg/logout";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
@@ -25,6 +28,7 @@ const CareerDashboard = () => {
   }, []);
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  const [session, setSession] = useRecoilState(recoilSessionState);
 
   return (
     <>
@@ -82,9 +86,12 @@ const CareerDashboard = () => {
                 style={itemStyle}
                 danger
               >
-                <Link href="/logout">
-                  <a>Logout</a>
-                </Link>
+                <Button
+                  type="link"
+                  onClick={() => logout(session?.logoutUrl || "", setSession)}
+                >
+                  Logout
+                </Button>
               </Menu.Item>
             </Menu>
           </Header>

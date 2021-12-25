@@ -98,9 +98,6 @@ const Navbar: React.FC = () => {
       <Item key="3" icon={<AppStoreOutlined />} style={itemStyle}>
         Applications
       </Item>
-      <Item key="4" icon={<UserOutlined />} style={itemStyle}>
-        Users
-      </Item>
     </Menu>
   );
 };

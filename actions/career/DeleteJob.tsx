@@ -3,7 +3,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Button, message, Popconfirm, Typography } from "antd";
 import { useState } from "react";
 import { secured } from "react-abac";
-import { permissions } from "../../pkg/abac";
+import { permissions } from "../../pkg/abac.careers";
 
 const DELETE_JOB = gql`
   mutation RemoveJob($id: ID!) {

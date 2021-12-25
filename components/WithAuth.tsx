@@ -12,18 +12,18 @@ const WithAuth: (Component: NextPage) => NextPage = (Component: NextPage) => {
   const Auth: NextPage = (props) => {
     const router = useRouter()
     const [session, setSession] = useRecoilState(recoilSessionState);
-    const { next } = router.query;
+    const path = router.pathname.split('/')[1]
     
     if (!session) {
       return (
         <div>
           <Redirect
-            loginUrl={`${process.env.NEXT_PUBLIC_LOGIN_URL}/login`}
+            loginUrl={`${process.env.NEXT_PUBLIC_LOGIN_URL}`}
             historyPush={router.push}
             sessionState={session}
             setSessionState={setSession}
             basePath={`${process.env.NEXT_PUBLIC_BASE_URL}`}
-            path={(next as string) || "admin"}
+            path={path}
             ory={ory}
             xenon={xenon}
           />

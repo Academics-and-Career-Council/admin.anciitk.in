@@ -28,7 +28,7 @@ import Link from "next/link";
 import { isBrowser, isMobile } from "react-device-detect";
 import { useRecoilState } from "recoil";
 import { recoilSessionState } from "../pkg/recoilDeclarations";
-import { permissions } from "../pkg/abac";
+import { permissions } from "../pkg/abac.careers";
 import AdminAccess from "./AdminAccess";
 import ResJSX from "./ResJSX";
 
@@ -122,22 +122,22 @@ const AdminPage = () => {
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<ApartmentOutlined />}>
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/resources`}>
+                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resources`}>
                   Resources Portal
                 </Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<WalletOutlined />}>
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/career`}>
+                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/career`}>
                   Career Portal
                 </Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<BookOutlined />}>
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/courses`}>
+                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/courses`}>
                   Courses Portal
                 </Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<SettingOutlined />}>
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/settings`}>
+                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/settings`}>
                   Settings
                 </Link>
               </Menu.Item>

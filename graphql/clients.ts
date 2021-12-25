@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 
 const ArgonClient = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_ARGON_URL,
@@ -9,10 +9,7 @@ const ArgonClient = new ApolloClient({
 export const CareerClient = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_ARGON_URL,
   cache: new InMemoryCache(),
-  headers: {
-    "Content-Type": "application/json",
-    email: "vgoyal20@iitk.ac.in",
-  },
+  credentials: 'include',
   defaultOptions: {
     query: {
       fetchPolicy: 'network-only',

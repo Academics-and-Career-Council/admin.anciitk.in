@@ -4,7 +4,7 @@ import "antd/dist/antd.css";
 import { useRecoilState } from "recoil";
 import { recoilSessionState } from "../pkg/recoilDeclarations";
 import { AbacProvider, AllowedTo } from "react-abac";
-import { rules } from "../pkg/abac";
+import { rules } from "../pkg/abac.careers";
 import AdminPage from "../components/AdminPage";
 import WithAuth from "../components/WithAuth";
 
@@ -24,17 +24,6 @@ function Admin() {
     }
     setInitials(initial);
   }
-
-  useEffect(() => {
-    if (!session) {
-      router.push({
-        pathname: "/",
-        query: {
-          next: "admin",
-        },
-      });
-    }
-  }, [session]);
 
   useEffect(() => {
     function handleResize() {

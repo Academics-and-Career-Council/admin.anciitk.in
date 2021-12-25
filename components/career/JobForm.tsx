@@ -73,7 +73,7 @@ const JobForm: React.FC<{
       layout="vertical"
       initialValues={{
         ...data,
-        deadline: moment(data.deadline),
+        deadline: data.deadline === "" ? moment() : moment(data.deadline),
         check: false,
       }}
       wrapperCol={{ span: 20 }}
