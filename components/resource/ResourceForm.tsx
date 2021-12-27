@@ -1,13 +1,9 @@
 import { getDocumentEdit_getDocument } from "../../container/resource/__generated__/getDocumentEdit";
-import {
-  getOrder,
-  getOrderVariables,
-  getOrder_getResourcesByWing,
-} from "../../actions/resource/__generated__/getOrder";
+import { getOrder } from "../../actions/resource/__generated__/getOrder";
 import { Form, Input, Button, Checkbox, message, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CustomDropdown from "./CustomDropdown";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import addResource, {
   ADD_RESOURCE,
   GET_ORDER,
@@ -15,7 +11,6 @@ import addResource, {
 import editResource from "../../actions/resource/EditButton";
 import { getAddData, getEditData } from "../../pkg/helpers";
 import router from "next/router";
-import {rules} from "../../pkg/abac"
 const { Title } = Typography;
 
 type dataType = {

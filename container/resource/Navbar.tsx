@@ -21,7 +21,11 @@ const NavbarContainer: React.FC = () => {
   if (loading) return <Loader />;
   if (error) {
     return (
-      <Result status="error" title={error.name} subTitle={error.message} />
+      <Result
+        status="error"
+        title={<span style={{ color: "white" }}>{error.name}</span>}
+        subTitle={<span style={{ color: "white" }}>{error.message}</span>}
+      />
     );
   }
   return <Navbar wings={data?.getWings || []} />;

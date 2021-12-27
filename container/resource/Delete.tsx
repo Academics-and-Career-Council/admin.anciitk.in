@@ -25,10 +25,6 @@ const DELETE_RESOURCE = gql`
   }
 `;
 
-interface props {
-  wing: string;
-}
-
 const DeleteContainer: React.FC<{ wing: string }> = ({ wing }) => {
   const { loading, error, data } = useQuery<getData>(DELETE_RESOURCE, {
     variables: { wing: wing },
@@ -42,11 +38,4 @@ const DeleteContainer: React.FC<{ wing: string }> = ({ wing }) => {
   return <Delete wing={wing} data={data?.getResourcesByWing || []} />;
 };
 
-// export default DeleteContainer;
-export default secured({
-  permissions: permissions.DELETE_BUTTON,
-  mapPropsToData: (props:props) => props.wing,
-  noAccess: () => {
-    return <AccessDenied />;
-  },
-})(DeleteContainer);
+export default DeleteContainer;

@@ -36,11 +36,3 @@ const Submenu: React.FC<props> = ({ title, number}) => {
 };
 
 export default Submenu;
-
-// export default secured({
-//   permissions: permissions.VIEW_PAGE,
-//   mapPropsToData: (props) => props,
-//   noAccess: () => {
-//     return <AccessDenied />
-//   },
-// })(Submenu);

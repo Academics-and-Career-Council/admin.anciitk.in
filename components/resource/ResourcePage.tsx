@@ -10,11 +10,8 @@ import getCurrentComponent from "../../pkg/components";
 import NavbarContainer from "../../container/resource/Navbar";
 import { ResourceClient } from "../../graphql/clients";
 import { ApolloProvider } from "@apollo/client";
-import { AbacProvider, secured } from "react-abac";
 import { recoilSessionState } from "../../pkg/recoilDeclarations";
 import { useRecoilState } from "recoil";
-import { rules, permissions } from "../../pkg/abac";
-import AccessDenied from "./Denied";
 const { Title } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -32,9 +29,6 @@ const ResourcePage: React.FC = () => {
   const router = useRouter();
   const [collapsed, setCollapse] = useState(false);
   const [session] = useRecoilState(recoilSessionState);
-  // if (!session) {
-  //   router.push("/?next=resource", undefined, {shallow:true});
-  // }
   const logoutUrl = session?.logoutUrl;
 
   return (
@@ -141,10 +135,11 @@ const ResourcePage: React.FC = () => {
   );
 };
 
-export default secured({
-  permissions: permissions.VIEW_PAGE,
-  mapPropsToData: (props) => props,
-  noAccess: () => {
-    return <AccessDenied />
-  },
-})(ResourcePage);
+// export default secured({
+//   permissions: permissions.VIEW_PAGE,
+//   mapPropsToData: (props) => props,
+//   noAccess: () => {
+//     return <AccessDenied />
+//   },
+// })(ResourcePage);
+export default ResourcePage;

@@ -12,7 +12,6 @@ const WithAuth: (Component: NextPage) => NextPage = (Component: NextPage) => {
     const router = useRouter()
     const [session, setSession] = useRecoilState(recoilSessionState);
     const { next } = router.query;
-    console.error(next)
     
     if (!session) {
       return (

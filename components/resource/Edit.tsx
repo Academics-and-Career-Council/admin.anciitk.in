@@ -62,10 +62,3 @@ const Edit: React.FC<{ wing: string; data: getDataEdit_getResourcesByWing[] }> =
   };
 
 export default Edit;
-// export default secured({
-//   permissions: permissions.ADD_BUTTON,
-//   mapPropsToData: (props) => props,
-//   noAccess: () => {
-//     return <AccessDenied />;
-//   },
-// })(Edit);

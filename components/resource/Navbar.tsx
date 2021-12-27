@@ -1,15 +1,10 @@
-import {
-  GetWings,
-  GetWings_getWings,
-} from "../../container/resource/__generated__/GetWings";
+import { GetWings_getWings } from "../../container/resource/__generated__/GetWings";
 import { Menu } from "antd";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { recoilSessionState } from "../../pkg/recoilDeclarations";
-
-import Submenu from "./Submenu";
-
+import { useAbac } from "react-abac";
 import {
   BookOutlined,
   PlusCircleOutlined,
@@ -18,7 +13,7 @@ import {
 } from "@ant-design/icons";
 
 import { toTitleCase } from "../../pkg/helpers";
-import { Role } from "@anciitk/xenon-js";
+import { permissions } from "../../pkg/abac";
 const { Item, SubMenu } = Menu;
 
 type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
@@ -50,6 +45,7 @@ const getWing = (key: string, wingList: string[]) => {
 
 const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
   const router = useRouter();
+  const { userHasPermissions } = useAbac();
   const wingList = wings.map((wing) => wing.name);
   const [selectedWing, setSelectedWing] = useState("invalid");
   const [selectedMode, setSelectedMode] = useState("invalid");
@@ -97,28 +93,21 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
             icon={<BookOutlined />}
             title={toTitleCase(wing.name)}
           >
-            {role === Role.Admin || Role.Manager || Role.Secretary ? (
+            {userHasPermissions(permissions.ADD_BUTTON) ? (
               <Item key={`${index + 1}1`} icon={<PlusCircleOutlined />}>
                 Add Resource
               </Item>
             ) : null}
-            {role === Role.Admin || Role.Manager || Role.Secretary ? (
+            {userHasPermissions(permissions.EDIT_BUTTON) ? (
               <Item key={`${index + 1}2`} icon={<EditOutlined />}>
-                Edit Resources
+                Edit Resource
               </Item>
             ) : null}
-            {role === Role.Admin ? (<Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
-              Delete Resources
-            </Item>): null}
-            {/* <Item key={`${index + 1}1`} icon={<PlusCircleOutlined />}>
-              Add Resource
-            </Item> */}
-            {/* <Item key={`${index + 1}2`} icon={<EditOutlined />}>
-              Edit Resources
-            </Item> */}
-            {/* <Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
-              Delete Resources
-            </Item> */}
+            {userHasPermissions(permissions.DELETE_BUTTON) ? (
+              <Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
+                Resource Resource
+              </Item>
+            ) : null}
           </SubMenu>
         ))}
       </Menu>

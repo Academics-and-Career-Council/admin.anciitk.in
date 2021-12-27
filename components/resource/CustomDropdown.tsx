@@ -106,7 +106,6 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
           onChange={change}
           disabled={dropDisable}
         >
-          {/* <Select.Option value="demo">Demo</Select.Option>1 */}
           {menu}
         </Select>
       </Form.Item>
