@@ -19,6 +19,7 @@ const GET_ADMIN_JOB = gql`
       eligibility
       shortlist
       test
+      application_process
     }
   }
 `;

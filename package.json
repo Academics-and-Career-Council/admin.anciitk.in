@@ -8,13 +8,17 @@
     "start": "next start",
     "lint": "next lint",
     "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql/career-schema.json --target=typescript --tagName=gql",
-    "download-schema": "npx apollo service:download --endpoint=http://localhost:4455/.argon/graphql graphql/career-schema.json"
+    "download-schema": "npx apollo service:download --endpoint=http://localhost:5000/graphql graphql/career-schema.json"
+  },
+  "resolutions": {
+    "graphql": "15.6.1",
+    "**/graphql": "15.6.1"
   },
   "dependencies": {
     "@anciitk/kratos-verify-session": "2.0.0",
     "@anciitk/xenon-js": "2.0.0",
     "@apollo/client": "3.4.16",
-    "@syncfusion/ej2-react-spreadsheet": "^19.3.55",
+    "@syncfusion/ej2-react-spreadsheet": "19.3.55",
     "antd": "4.16.13",
     "autoprefixer": "10.3.7",
     "axios-hooks": "2.7.0",

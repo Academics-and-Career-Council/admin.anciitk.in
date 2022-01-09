@@ -21,6 +21,7 @@ export interface GetAdminJob_getAdminJob {
   eligibility: string;
   shortlist: string;
   test: string;
+  application_process: string;
 }
 
 export interface GetAdminJob {

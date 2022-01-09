@@ -27,6 +27,7 @@ const JobForm: React.FC<{
           ...values,
           jd: values.jd.text,
           description: values.jd.text,
+          application_process: values.application_process.text
         },
       };
 
@@ -48,6 +49,7 @@ const JobForm: React.FC<{
           ...values,
           jd: values.jd.text || values.jd,
           description: values.jd.text || values.jd,
+          application_process: values.application_process.text || values.application_process
         },
       };
 
@@ -136,6 +138,18 @@ const JobForm: React.FC<{
       >
         <MdEditor
           style={{ height: "400px" }}
+          defaultValue={data.jd}
+          renderHTML={(text) => mdParser.render(text)}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Application Process"
+        name="application_process"
+        valuePropName="text"
+        rules={[{ required: true, message: "Please input application process" }]}
+      >
+        <MdEditor
+          style={{ height: "300px" }}
           defaultValue={data.jd}
           renderHTML={(text) => mdParser.render(text)}
         />

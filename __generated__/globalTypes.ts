@@ -19,6 +19,7 @@ export interface JobData {
   eligibility: string;
   shortlist: string;
   test: string;
+  application_process: string;
 }
 
 export interface NotificationData {
