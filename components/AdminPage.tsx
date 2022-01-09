@@ -41,7 +41,11 @@ const AdminPage = () => {
   const [session] = useRecoilState(recoilSessionState);
   const logoutUrl = session?.logoutUrl;
   const UserName = session?.user.name;
+  const RollNo = session?.user.rollno;
+  const mailId = session?.user.email;
+  const branch = session?.user.department;
   const [initials, setInitials] = useState("");
+  const imgUrl = `https://cdn.statically.io/img/iitk.ac.in/f=auto/counsel/old/family_tree/images/${RollNo}_0.jpg`;
   const role = session?.user.role;
   if (UserName !== undefined && initials === "") {
     var names = UserName.split(" "),
@@ -117,14 +121,7 @@ const AdminPage = () => {
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             <Menu theme="dark" defaultSelectedKeys={["6"]} mode="inline">
               <Menu.Item key="6" icon={<SolutionOutlined />}>
-                <Link href="/">Admin</Link>
-              </Menu.Item>
-              <Menu.Item key="1" icon={<UserOutlined />}>
-                <Link
-                  href={`${process.env.NEXT_PUBLIC_ACCOUNTS_URL}/dashboard`}
-                >
-                  Profile page
-                </Link>
+                <Link href="/">Admin Profile</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<ApartmentOutlined />}>
                 <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resource`}>
@@ -141,11 +138,6 @@ const AdminPage = () => {
                   Courses Portal
                 </Link>
               </Menu.Item> */}
-              <Menu.Item key="5" icon={<SettingOutlined />}>
-                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/settings`}>
-                  Settings
-                </Link>
-              </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout" style={{ minWidth: "700px" }}>
@@ -195,7 +187,7 @@ const AdminPage = () => {
                 className="site-layout-background"
                 style={{ padding: 24, minHeight: 360, width: "100%" }}
               >
-                {/* <div
+                <div
                   style={{
                     backgroundColor: "#fff",
                     padding: 40,
@@ -204,227 +196,84 @@ const AdminPage = () => {
                   }}
                 >
                   <div style={{ display: "flex" }}>
-                    <div style={{ width: "100%", paddingLeft: 30 }}>
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
+                    <div style={{ width: "10%" }}></div>
+                    <div>
+                      <object
+                        data={imgUrl}
+                        style={{
+                          height: 230,
+                          boxShadow: "2px 2px 4px #b1b1b1",
+                        }}
                       >
-                        <Button className={styles.coursesButton}>
-                          <Link href="">
-                            <div>
-                              COURSES <br /> PORTAL
-                            </div>
-                          </Link>
-                        </Button>
-                        <Button className={styles.coursesButton}>
-                          <Link href="">
-                            <div>
-                              CAREERS <br /> PORTAL
-                            </div>
-                          </Link>
-                        </Button>
-                      </div>
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <Button className={styles.coursesButton}>
-                          <Link href="">
-                            <div>
-                              RESOURSES <br /> PORTAL
-                            </div>
-                          </Link>
-                        </Button>
+                        <img
+                          src="https://cdn3.vectorstock.com/i/1000x1000/63/02/face-young-woman-using-face-mask-vector-30736302.jpg"
+                          alt="IITK"
+                          style={{
+                            height: 230,
+                            objectFit: "cover",
+                            boxShadow: "2px 2px 4px #b1b1b1",
+                          }}
+                        />
+                      </object>
+                      <br />
+                      <br />
+                      <hr style={{ border: "1.25px solid #ddd" }}></hr>
+                    </div>
+                    <div style={{ width: "10%" }}></div>
 
-                        <AdminAccess />
+                    <div style={{ width: "100%", paddingLeft: 30 }}>
+                      <div style={{ fontSize: 20, color: "#6b6b6b" }}>
+                        Basic Info
+                      </div>
+                      <hr style={{ border: "1px solid #ddd" }}></hr>
+                      <div style={{ fontSize: "17px" }}>
+                        Name:
+                        <div className={styles.paddingForProfilePage}>
+                          {UserName}
+                        </div>
+                      </div>
+                      <br />
+                      <br />
+                      <div style={{ fontSize: "17px" }}>
+                        Roll Number:
+                        <div className={styles.paddingForProfilePage}>
+                          {RollNo}
+                        </div>
+                      </div>
+                      <br />
+                      <br />
+                      <div style={{ fontSize: "17px" }}>
+                        Email ID:
+                        <div className={styles.paddingForProfilePage}>
+                          {mailId}
+                        </div>
+                      </div>
+                      <br />
+                      <br />
+                      <div style={{ fontSize: "17px" }}>
+                        Branch:
+                        <div className={styles.paddingForProfilePage}>
+                          {branch}
+                        </div>
+                      </div>
+                      <br />
+                      <br />
+                      <div style={{ fontSize: "17px" }}>
+                        Role:
+                        <div className={styles.paddingForProfilePage}>
+                          {role?.toString().toUpperCase()}
+                        </div>
                       </div>
                     </div>
                   </div>
                   <hr style={{ border: "1px solid #ddd" }}></hr>
-                </div> */}
-              </div>
-            </Content>
-            <Footer style={{ textAlign: "center" }}></Footer>
-          </Layout>
-        </Layout>
-      </>
-    );
-  } else if (isMobile) {
-    return (
-      <div>
-        <title>Dashboard</title>
-        <Layout>
-          <Space></Space>
-          <Drawer
-            className={styles.customPadding}
-            placement="left"
-            closable={false}
-            onClose={onClose}
-            visible={visible}
-            key="left"
-            bodyStyle={{ padding: 0, backgroundColor: "#001529" }}
-          >
-            <div
-              style={{
-                height: "40px",
-                margin: "12px",
-                background: "rgba(255, 255, 255, 0.3)",
-              }}
-            />
-
-            <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-              <Menu.Item
-                key="1"
-                icon={<UserOutlined style={{ fontSize: "20px" }} />}
-                className={styles.phoneMenuProfile}
-              >
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/dashboard`}>
-                  Profile page
-                </Link>
-              </Menu.Item>
-              <Menu.Item
-                key="2"
-                icon={<ApartmentOutlined style={{ fontSize: "20px" }} />}
-                className={styles.phoneMenuProfile}
-              >
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/resources`}>
-                  Resources Portal
-                </Link>
-              </Menu.Item>
-              <Menu.Item
-                key="3"
-                icon={<SolutionOutlined style={{ fontSize: "20px" }} />}
-                className={styles.phoneMenuProfile}
-              >
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/career`}>
-                  Career Portal
-                </Link>
-              </Menu.Item>
-              <Menu.Item
-                key="4"
-                icon={<BookOutlined style={{ fontSize: "20px" }} />}
-                className={styles.phoneMenuProfile}
-              >
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/courses`}>
-                  Courses Portal
-                </Link>
-              </Menu.Item>
-              <Menu.Item
-                key="5"
-                icon={<SettingOutlined style={{ fontSize: "20px" }} />}
-                className={styles.phoneMenuProfile}
-              >
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/settings`}>
-                  Settings
-                </Link>
-              </Menu.Item>
-            </Menu>
-            <div
-              style={{
-                position: "absolute",
-                bottom: "0px",
-                color: "#fff",
-                backgroundColor: "#002140",
-                width: "100%",
-              }}
-            >
-              <div className={styles.arrowProfile} onClick={onClose}>
-                <LeftOutlined style={{ fontSize: "20px" }} />
-              </div>
-            </div>
-          </Drawer>
-          <Layout className="site-layout">
-            <Header
-              className="site-layout-background"
-              style={{
-                padding: 0,
-                backgroundColor: "#ffffff",
-                height: "10vh",
-                display: "flex",
-                boxShadow: "2px 2px 4px #b1b1b1",
-              }}
-            >
-              <button
-                onClick={showDrawer}
-                style={{
-                  paddingRight: "10px",
-                  paddingLeft: 10,
-                  border: "0px",
-                  paddingBottom: 10,
-                  paddingTop: 5,
-                  backgroundColor: "#ffffff",
-                }}
-              >
-                <MenuOutlined style={{ fontSize: "30px" }} />
-              </button>
-              <h1 className={styles.base}>Dashboard</h1>
-              <div
-                style={{
-                  fontSize: 30,
-                  position: "absolute",
-                  right: 20,
-                  top: 0,
-                }}
-              >
-                <Popover
-                  placement={"bottomRight"}
-                  content={content}
-                  title="My Profile"
-                  trigger="click"
-                >
-                  <EllipsisOutlined />
-                </Popover>
-              </div>
-            </Header>
-            <Content style={{ margin: "-20px 16px", height: "90vh" }}>
-              <br />
-              <br />
-
-              <div className="" style={{ minHeight: "75vh", padding: "5px" }}>
-                <div
-                  style={{
-                    backgroundColor: "#ffffff",
-                    paddingRight: "15px",
-                    paddingLeft: "15px",
-                    paddingTop: "5px",
-                    paddingBottom: "25px",
-                  }}
-                >
-                  <div style={{ width: "100%" }}>
-                    <div
-                      style={{ justifyContent: "center", alignItems: "center" }}
-                    >
-                      <Button className={styles.phoneButton}>
-                        <Link href="">
-                          <div>
-                            COURSES <br /> PORTAL
-                          </div>
-                        </Link>
-                      </Button>
-                      <Button className={styles.phoneButton}>
-                        <Link href="">
-                          <div>
-                            CAREERS <br /> PORTAL
-                          </div>
-                        </Link>
-                      </Button>
-                      <Button className={styles.phoneButton}>
-                        <Link href="">
-                          <div>
-                            RESOURSES <br /> PORTAL
-                          </div>
-                        </Link>
-                      </Button>
-
-                      <AdminAccess />
-                    </div>
-                  </div>
-                  <hr></hr>
                 </div>
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}></Footer>
           </Layout>
         </Layout>
-      </div>
+      </>
     );
   } else {
     return <div />;
