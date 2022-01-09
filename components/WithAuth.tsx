@@ -3,6 +3,7 @@ import Redirect from "@anciitk/kratos-verify-session";
 import { useRouter } from "next/router";
 import React from "react";
 import { useRecoilState } from "recoil";
+import { Role } from "@anciitk/xenon-js";
 
 import { ory } from "../pkg/open-source";
 import { xenon } from "../pkg/xenon";
@@ -10,10 +11,10 @@ import { recoilSessionState } from "../pkg/recoilDeclarations";
 
 const WithAuth: (Component: NextPage) => NextPage = (Component: NextPage) => {
   const Auth: NextPage = (props) => {
-    const router = useRouter()
+    const router = useRouter();
     const [session, setSession] = useRecoilState(recoilSessionState);
-    const path = router.pathname.split('/')[1]
-    
+    const path = router.pathname.split("/")[1];
+
     if (!session) {
       return (
         <div>
@@ -26,6 +27,7 @@ const WithAuth: (Component: NextPage) => NextPage = (Component: NextPage) => {
             path={path}
             ory={ory}
             xenon={xenon}
+            roles={[Role.Secretary, Role.Manager, Role.Admin]}
           />
         </div>
       );

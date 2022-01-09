@@ -25,6 +25,7 @@ const AddJob: React.FC = () => {
           shortlist: "",
           test: "",
           deadline: "",
+          application_process: ""
         }}
         type="add"
       />

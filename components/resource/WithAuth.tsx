@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import { ory } from "../../pkg/open-source";
 import { xenon } from "../../pkg/xenon";
 import { recoilSessionState } from "../../pkg/recoilDeclarations";
+import { Role } from "@anciitk/xenon-js";
 
 const WithAuth: (Component: NextPage) => NextPage = (Component: NextPage) => {
   const Auth: NextPage = (props) => {
@@ -24,6 +25,7 @@ const WithAuth: (Component: NextPage) => NextPage = (Component: NextPage) => {
             path={(next as string) || "resource"}
             ory={ory}
             xenon={xenon}
+            roles={[Role.Secretary, Role.Manager, Role.Admin]}
           />
       );
     }
