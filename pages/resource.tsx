@@ -7,6 +7,8 @@ import { Role } from "@anciitk/xenon-js";
 import WithAuth from "../components/resource/WithAuth";
 import AccessDenied from "../components/resource/Denied";
 import { useRouter } from "next/router";
+import { isMobile } from "react-device-detect";
+import MobileError from "../components/MobileError";
 
 const Resource: React.FC = () => {
   const [session] = useRecoilState(recoilSessionState);
@@ -14,7 +16,6 @@ const Resource: React.FC = () => {
   const router = useRouter();
 
   let DefaultExport: React.FC;
-  console.log(role);
   if (role === Role.Admin) {
     DefaultExport = ResourcePage;
   } else if (role === Role.Manager || role === Role.Secretary) {
@@ -26,13 +27,16 @@ const Resource: React.FC = () => {
   } else {
     DefaultExport = AccessDenied;
   }
-
-  return (
-    <AbacProvider roles={[role || Role.Student]} rules={rules}>
-      {/* <ResourcePage /> */}
-      <DefaultExport />
-    </AbacProvider>
-  );
+  if (isMobile) {
+    return <MobileError />;
+  } else {
+    return (
+      <AbacProvider roles={[role || Role.Student]} rules={rules}>
+        {/* <ResourcePage /> */}
+        <DefaultExport />
+      </AbacProvider>
+    );
+  }
 };
 
 export default WithAuth(Resource);
