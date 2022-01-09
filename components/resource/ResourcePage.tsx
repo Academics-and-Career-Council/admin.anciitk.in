@@ -80,7 +80,7 @@ const ResourcePage: React.FC = () => {
                 style={{ position: "sticky", top: 0, zIndex: 100 }}
               >
                 <Menu.Item key="1" icon={<HomeOutlined />} style={itemStyle}>
-                  <Link href="/resource">
+                  <Link href="/">
                     <a>Home</a>
                   </Link>
                 </Menu.Item>

@@ -107,7 +107,7 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
             ) : null}
             {userHasPermissions(permissions.DELETE_BUTTON) ? (
               <Item key={`${index + 1}3`} icon={<DeleteOutlined />}>
-                Resource Resource
+                Delete Resource
               </Item>
             ) : null}
           </SubMenu>
