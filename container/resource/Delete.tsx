@@ -4,9 +4,6 @@ import React, { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
 import Result from "antd/lib/result";
 import Delete from "../../components/resource/Delete";
-import { secured } from "react-abac";
-import { permissions } from "../../pkg/abac";
-import AccessDenied from "../../components/resource/Denied";
 
 const DELETE_RESOURCE = gql`
   query getData($wing: String!) {

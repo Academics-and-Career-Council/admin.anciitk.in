@@ -2,7 +2,7 @@ import "antd/dist/antd.css";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { Layout, Menu, Typography, Breadcrumb, Result } from "antd";
 import HomeOutlined from "@ant-design/icons/HomeOutlined";
 import LogoutOutlined from "@ant-design/icons/LoginOutlined";
@@ -12,10 +12,16 @@ import { ResourceClient } from "../../graphql/clients";
 import { ApolloProvider } from "@apollo/client";
 import { recoilSessionState } from "../../pkg/recoilDeclarations";
 import { useRecoilState } from "recoil";
+import { permissions } from "../../pkg/abac";
+import { Role } from "@anciitk/xenon-js";
+import AccessDenied from "./Denied";
+import { GetWings_getWings } from "../../container/resource/__generated__/GetWings";
+
 const { Title } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 const itemStyle = { display: "flex", alignItems: "center" };
+let role;
 
 const toTitleCase = (str: string | string[] | undefined) => {
   if (typeof str === "string") {
@@ -30,6 +36,7 @@ const ResourcePage: React.FC = () => {
   const [collapsed, setCollapse] = useState(false);
   const [session] = useRecoilState(recoilSessionState);
   const logoutUrl = session?.logoutUrl;
+  role = session?.user.role;
 
   return (
     <>
@@ -142,4 +149,5 @@ const ResourcePage: React.FC = () => {
 //     return <AccessDenied />
 //   },
 // })(ResourcePage);
+
 export default ResourcePage;

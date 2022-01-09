@@ -14,13 +14,15 @@ import {
 
 import { toTitleCase } from "../../pkg/helpers";
 import { permissions } from "../../pkg/abac";
+import { Role } from "@anciitk/xenon-js";
+import AccessDenied from "./Denied";
 const { Item, SubMenu } = Menu;
-
+let role;
+let mode = "";
 type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
 
 const getMode = (key: string) => {
   let modeKey = key[1];
-  let mode = "";
   switch (modeKey) {
     case "1":
       mode = "add";
@@ -50,7 +52,7 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
   const [selectedWing, setSelectedWing] = useState("invalid");
   const [selectedMode, setSelectedMode] = useState("invalid");
   const [session] = useRecoilState(recoilSessionState);
-  const role = session?.user.role;
+  role = session?.user.role;
 
   useEffect(() => {
     const wing = router.query.wing;

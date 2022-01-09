@@ -1,7 +1,6 @@
 import { GetWings, GetWings_getWings } from "./__generated__/GetWings";
 import { gql, useQuery } from "@apollo/client";
 import { Result } from "antd";
-
 import Loader from "../../components/Loader";
 import Navbar from "../../components/resource/Navbar";
 import React from "react";

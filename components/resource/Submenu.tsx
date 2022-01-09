@@ -3,10 +3,6 @@ import PlusCircleOutlined from "@ant-design/icons/PlusCircleOutlined";
 import EditOutlined from "@ant-design/icons/EditOutlined";
 import DeleteOutlined from "@ant-design/icons/DeleteOutlined";
 import { Menu } from "antd";
-import { secured } from "react-abac";
-import AccessDenied from "./Denied";
-import { permissions } from "../../pkg/abac";
-const { Item, SubMenu } = Menu;
 
 interface props {
   title: string;

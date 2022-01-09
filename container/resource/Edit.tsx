@@ -42,11 +42,11 @@ const EditContainer: React.FC<{ wing: string }> = ({ wing }) => {
   return <Edit wing={wing} data={data?.getResourcesByWing || []} />;
 };
 
-// export default EditContainer;
-export default secured({
-  permissions: permissions.DELETE_BUTTON,
-  mapPropsToData: (props: props) => props.wing,
-  noAccess: () => {
-    return <AccessDenied />;
-  },
-})(EditContainer);
+export default EditContainer;
+// export default secured({
+//   permissions: permissions.DELETE_BUTTON,
+//   mapPropsToData: (props: props) => props.wing,
+//   noAccess: () => {
+//     return <AccessDenied />;
+//   },
+// })(EditContainer);

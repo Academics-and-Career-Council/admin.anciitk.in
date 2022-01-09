@@ -22,7 +22,7 @@ const AccessDenied: React.FC = () => {
           <>
             {useEffect(() => {
               setTimeout(() => {
-                router.push(`${process.env.NEXT_PUBLIC_LOGIN_URL}`);
+                router.push(`${process.env.NEXT_PUBLIC_LOGIN_URL}`, undefined, {shallow:true});
               }, 3000);
             }, [router])}
 

@@ -1,6 +1,4 @@
 import { gql } from "@apollo/client";
-import { Button } from "antd";
-import { useMutation } from "@apollo/client";
 import { ResourceClient } from "../../graphql/clients";
 
 export const ADD_RESOURCE = gql`
