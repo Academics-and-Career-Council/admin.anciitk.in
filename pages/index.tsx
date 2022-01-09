@@ -7,3 +7,4 @@ const Home: NextPage = () => {
 };
 
 export default WithAuth(Home);
+
