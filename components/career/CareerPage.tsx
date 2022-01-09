@@ -102,8 +102,16 @@ const CareerDashboard = () => {
               ? getCurrentComponent(router.query["mode"], router.query["id"])
               : "invalid mode"}
           </Content>
-          <Footer className="mx-4" style={{ backgroundColor: "black" }}>
-            footer
+          <Footer
+            className="mx-4"
+            style={{
+              backgroundColor: "black",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            Made with <span style={{ color: "red" }}>&hearts;</span> by
+            Academics and Career council
           </Footer>
         </Layout>
       </Layout>

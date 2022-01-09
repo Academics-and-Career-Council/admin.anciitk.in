@@ -5,7 +5,8 @@ import MarkDownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { useState } from "react";
 import { Checkbox, Button, Form, Input, message } from "antd";
-import updateNotification from '../../actions/career/updateNotification'
+import router from "next/router";
+import updateNotification from "../../actions/career/updateNotification";
 import addNotification from "../../actions/career/addNotification";
 
 const NotificationForm: React.FC<{
@@ -19,37 +20,46 @@ const NotificationForm: React.FC<{
   const onFinish = (values: any) => {
     setLoading(true);
 
-    if(type == 'add') {
+    if (type == "add") {
       const addVariables: AddNotificationVariables = {
         data: { heading: values.heading, data: values.data.text },
       };
 
       addNotification(addVariables)
-      .then(() => {
-        setLoading(false);
-        form.resetFields();
-        message.success("Notification Successfully added");
-      })
-      .catch((err) => {
-        setLoading(false);
-        message.error(err.message);
-      });
-    } else if(type == 'edit') {
+        .then(() => {
+          setLoading(false);
+          form.resetFields();
+          message.success("Notification Successfully added");
+          router.push("/career?mode=editnotification", undefined, {
+            shallow: true,
+          });
+        })
+        .catch((err) => {
+          setLoading(false);
+          message.error(err.message);
+        });
+    } else if (type == "edit") {
       const editVariables: UpdateNotificationVariables = {
         id: data.id,
-        data: { heading: values.heading, data: values.data.text || values.data },
+        data: {
+          heading: values.heading,
+          data: values.data.text || values.data,
+        },
       };
 
       updateNotification(editVariables)
-      .then(() => {
-        setLoading(false);
-        form.resetFields();
-        message.success("Notification Successfully updated");
-      })
-      .catch((err) => {
-        setLoading(false);
-        message.error(err.message);
-      });
+        .then(() => {
+          setLoading(false);
+          form.resetFields();
+          message.success("Notification Successfully updated");
+          router.push("/career?mode=editnotification", undefined, {
+            shallow: true,
+          });
+        })
+        .catch((err) => {
+          setLoading(false);
+          message.error(err.message);
+        });
     }
   };
 
@@ -71,7 +81,7 @@ const NotificationForm: React.FC<{
             { required: true, message: "Please input notification title" },
           ]}
         >
-          <Input autoFocus/>
+          <Input autoFocus />
         </Form.Item>
         <Form.Item
           label="Notification"

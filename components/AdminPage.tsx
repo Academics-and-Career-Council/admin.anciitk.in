@@ -116,13 +116,18 @@ const AdminPage = () => {
         <Layout style={{ minHeight: "100vh" }}>
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             <Menu theme="dark" defaultSelectedKeys={["6"]} mode="inline">
+              <Menu.Item key="6" icon={<SolutionOutlined />}>
+                <Link href="/">Admin</Link>
+              </Menu.Item>
               <Menu.Item key="1" icon={<UserOutlined />}>
-                <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/dashboard`}>
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_ACCOUNTS_URL}/dashboard`}
+                >
                   Profile page
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<ApartmentOutlined />}>
-                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resources`}>
+                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resource`}>
                   Resources Portal
                 </Link>
               </Menu.Item>
@@ -131,18 +136,15 @@ const AdminPage = () => {
                   Career Portal
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4" icon={<BookOutlined />}>
+              {/* <Menu.Item key="4" icon={<BookOutlined />}>
                 <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/courses`}>
                   Courses Portal
                 </Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key="5" icon={<SettingOutlined />}>
                 <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/settings`}>
                   Settings
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="6" icon={<SolutionOutlined />}>
-                <Link href="/">Admin</Link>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -193,7 +195,7 @@ const AdminPage = () => {
                 className="site-layout-background"
                 style={{ padding: 24, minHeight: 360, width: "100%" }}
               >
-                <div
+                {/* <div
                   style={{
                     backgroundColor: "#fff",
                     padding: 40,
@@ -237,7 +239,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <hr style={{ border: "1px solid #ddd" }}></hr>
-                </div>
+                </div> */}
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}></Footer>
