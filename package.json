@@ -13,7 +13,7 @@
     "**/graphql": "15.6.1"
   },
   "dependencies": {
-    "@anciitk/kratos-verify-session": "2.0.0",
+    "@anciitk/kratos-verify-session": "2.0.1",
     "@anciitk/xenon-js": "2.0.0",
     "@apollo/client": "3.4.16",
     "@syncfusion/ej2-react-spreadsheet": "19.3.55",
