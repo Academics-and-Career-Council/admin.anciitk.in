@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import { recoilSessionState } from "../pkg/recoilDeclarations";
 import { AbacProvider } from "react-abac";
-import { rules } from "../pkg/abac";
+import { rules } from "../pkg/abac.resources";
 import ResourcePage from "../components/resource/ResourcePage";
 import { Role } from "@anciitk/xenon-js";
 import WithAuth from "../components/resource/WithAuth";

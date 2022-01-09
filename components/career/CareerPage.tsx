@@ -9,7 +9,7 @@ import { secured } from "react-abac";
 import { useRecoilState } from "recoil";
 
 import Navbar from "./Navbar";
-import getCurrentComponent from "../../pkg/component";
+import getCurrentComponent from "../../pkg/component.careers";
 import { permissions } from "../../pkg/abac.careers";
 import ResJSX from "../ResJSX";
 import { recoilSessionState } from "../../pkg/recoilDeclarations";

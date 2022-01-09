@@ -13,7 +13,7 @@ import {
 } from "@ant-design/icons";
 
 import { toTitleCase } from "../../pkg/helpers";
-import { permissions } from "../../pkg/abac";
+import { permissions } from "../../pkg/abac.resources";
 import { Role } from "@anciitk/xenon-js";
 import AccessDenied from "./Denied";
 const { Item, SubMenu } = Menu;

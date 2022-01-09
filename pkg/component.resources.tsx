@@ -4,7 +4,7 @@ import DeleteContainer from "../container/resource/Delete";
 import InvalidWing from "../components/resource/Invalid";
 import EditorContainer from "../container/resource/Editor";
 import { secured } from "react-abac";
-import { permissions } from "./abac";
+import { permissions } from "./abac.resources";
 import AccessDenied from "../components/resource/Denied";
 import { wingProps, editContainerProps } from "./propsInterfaces";
 

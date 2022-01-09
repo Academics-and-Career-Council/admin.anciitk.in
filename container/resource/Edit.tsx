@@ -5,7 +5,7 @@ import Result from "antd/lib/result";
 import Edit from "../../components/resource/Edit";
 import { getDataEdit } from "./__generated__/getDataEdit";
 import { secured } from "react-abac";
-import { permissions } from "../../pkg/abac";
+import { permissions } from "../../pkg/abac.resources";
 import AccessDenied from "../../components/resource/Denied";
 
 const EDIT_RESOURCE = gql`
