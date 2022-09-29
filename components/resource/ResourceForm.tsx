@@ -31,7 +31,10 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
-
+  // const [newWing, setNewWing] = useState<boolean>(false);
+  // if (wing === "new") {
+  //   setNewWing(true)
+  // }
   const {
     data: orderData,
     error: orderError,
@@ -47,7 +50,7 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
       const addData = getAddData(
         values,
         String(orderData?.getResourcesByWing.length),
-        wing
+        wing, 
       );
       // console.log(addData)
       addResource(addData)
@@ -99,9 +102,16 @@ const ResourceForm: React.FC<props> = ({ data, action, wing, id }) => {
       form={form}
       onFinish={onFinish}
     >
-      {action === "add" ? (
+      {action === "add" && wing === "new" ? (
         <CustomDropdown wing={wing} Form={Form} form={form} />
       ) : null}
+      <Form.Item
+        label={<Title level={5}>Wing</Title>}
+        name="wing"
+        rules={[{ required: true, message: "Please enter a Wing" }]}
+      >
+        <Input autoFocus />
+      </Form.Item>
       <Form.Item
         label={<Title level={5}>Name</Title>}
         name="name"

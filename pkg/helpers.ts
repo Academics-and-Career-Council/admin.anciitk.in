@@ -13,6 +13,10 @@ export const getAddData = (addData: any, order: string, wing: string) => {
   };
   let heading: string;
   let exists: boolean;
+  // if (newWing) {
+  //   exists = false;
+  //   heading = addData.headingInput;
+  // } else {
   if (addData.headingDrop === undefined) {
     heading = addData.headingInput;
     exists = false;
@@ -20,6 +24,7 @@ export const getAddData = (addData: any, order: string, wing: string) => {
     heading = addData.headingDrop;
     exists = true;
   }
+  // }
   return { data, heading, exists, order, wing };
 };
 
@@ -35,8 +40,8 @@ export const getEditData = (formValues: any, givenData: any) => {
 
 export const getDeleteData = (
   // key: any,
-  pos:string,
-  objectId : string,
+  pos: string,
+  objectId: string,
   data: getDataEdit_getResourcesByWing[]
 ) => {
   // const objectPositions = info.checkedNodesPositions.map((element: any) => {
@@ -67,6 +72,6 @@ export const getDeleteData = (
   // console.log(delList);
   // console.log(data)
   // console.log(pos[4])
-  const headingId = data[parseInt(pos[4])].id
-  return {headingId, objectId}
+  const headingId = data[parseInt(pos[4])].id;
+  return { headingId, objectId };
 };
