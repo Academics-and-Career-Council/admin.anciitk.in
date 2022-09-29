@@ -76,7 +76,7 @@ const AdminPage = () => {
       <Button
         style={{ width: "100%", borderColor: "#ffffff", textAlign: "left" }}
       >
-        <Link href={`${process.env.NEXT_PUBLIC_ACCOUNTS_URL}/settings`}>
+        <Link href={`${process.env.NEXT_PUBLIC_LOGIN_URL}/settings`}>
           <p className={styles.logoutMenuItem}>Settings</p>
         </Link>
       </Button>
