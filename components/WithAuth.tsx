@@ -19,7 +19,7 @@ const WithAuth: (Component: NextPage) => NextPage = (Component: NextPage) => {
       return (
         <div>
           <Redirect
-            loginUrl={`${process.env.NEXT_PUBLIC_ACCOUNTS_URL}/login`}
+            loginUrl={`${process.env.NEXT_PUBLIC_LOGIN_URL}`}
             historyPush={router.push}
             sessionState={session}
             setSessionState={setSession}
