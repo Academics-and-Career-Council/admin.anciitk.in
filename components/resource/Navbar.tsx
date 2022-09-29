@@ -10,7 +10,6 @@ import {
   PlusCircleOutlined,
   EditOutlined,
   DeleteOutlined,
-  PlusSquareOutlined,
 } from "@ant-design/icons";
 
 import { toTitleCase } from "../../pkg/helpers";
@@ -80,19 +79,13 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
         }}
         selectedKeys={[selectedMode, selectedWing]}
         onSelect={(info) => {
-          if (info.key === "add") {
-            router.push(`/resource?wing=new&mode=add`, undefined, {
-              shallow: true,
-            });
-          } else {
-            const mode = getMode(info.key);
-            const wing = getWing(info.key, wingList);
-            setSelectedMode(mode);
-            setSelectedWing(wing);
-            router.push(`/resource?wing=${wing}&mode=${mode}`, undefined, {
-              shallow: true,
-            });
-          }
+          const mode = getMode(info.key);
+          const wing = getWing(info.key, wingList);
+          setSelectedMode(mode);
+          setSelectedWing(wing);
+          router.push(`/resource?wing=${wing}&mode=${mode}`, undefined, {
+            shallow: true,
+          });
         }}
       >
         {/* {wings.map((wing, index)=> <Submenu number={`${index}`} key={index} title={wing.name}/>)} */}
@@ -119,11 +112,6 @@ const Navbar: React.FC<{ wings: GetWings_getWings[] }> = ({ wings }) => {
             ) : null}
           </SubMenu>
         ))}
-        {userHasPermissions(permissions.ADD_BUTTON) ? (
-          <Item key={`add`} icon={<PlusSquareOutlined />}>
-            Add Resource
-          </Item>
-        ) : null}
       </Menu>
     </>
   );

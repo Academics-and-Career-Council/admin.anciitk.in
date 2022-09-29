@@ -29,7 +29,7 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
 
   const { loading, error, data } = useQuery<getTitles>(ADD_RESOURCE, {
     variables: { wing: wing },
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: "network-only"
   });
 
   const change = () => {
@@ -62,9 +62,7 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
       setMenu(
         <Select.Option value="loading">
           <Spin
-            indicator={
-              <Loading3QuartersOutlined style={{ fontSize: 24 }} spin />
-            }
+            indicator={<Loading3QuartersOutlined style={{ fontSize: 24 }} spin />}
           />
         </Select.Option>
       );
@@ -93,27 +91,24 @@ const CustomDropdown: React.FC<{ wing: string; Form: any; form: any }> = ({
 
   return (
     <>
-      {wing !== "new" ? (
-        <Form.Item
-          label={<Title level={5}>Heading</Title>}
-          name="headingDrop"
-          rules={
-            dropDisable
-              ? []
-              : [{ required: true, message: "Please input Heading" }]
-          }
+      <Form.Item
+        label={<Title level={5}>Heading</Title>}
+        name="headingDrop"
+        rules={
+          dropDisable
+            ? []
+            : [{ required: true, message: "Please input Heading" }]
+        }
+      >
+        <Select
+          placeholder="-- Choose Heading --"
+          allowClear
+          onChange={change}
+          disabled={dropDisable}
         >
-          <Select
-            placeholder="-- Choose Heading --"
-            allowClear
-            onChange={change}
-            disabled={dropDisable}
-          >
-            {menu}
-          </Select>
-        </Form.Item>
-      ) : null}
-
+          {menu}
+        </Select>
+      </Form.Item>
       <Title level={5}>or</Title>
       <Form.Item
         name="headingInput"
