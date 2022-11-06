@@ -8,7 +8,7 @@ import { rules } from "../pkg/abac.careers";
 import AdminPage from "../components/AdminPage";
 import WithAuth from "../components/WithAuth";
 
-function Admin() {
+const  Admin:React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(1295);
   const [collapsed, setCollapsed] = useState(false);
   const [session] = useRecoilState(recoilSessionState);

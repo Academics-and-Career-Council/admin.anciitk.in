@@ -7,6 +7,7 @@ const ADD_JOB = gql`
     addJob(data: $data) {
       id
       name
+      type
       designation
       deadline
       stipend

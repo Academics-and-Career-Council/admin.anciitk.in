@@ -10,6 +10,7 @@ const UPDATE_JOB = gql`
     updateJob(id: $id, data: $data) {
       id,
       name,
+      type,
       designation,
       deadline,
       stipend,

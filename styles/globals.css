@@ -31,3 +31,7 @@ label {
   font-weight: bold;
   font-size: larger !important;
 }
+
+Table {
+  padding: 0 20px;
+}

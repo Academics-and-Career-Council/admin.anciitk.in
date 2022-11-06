@@ -10,6 +10,7 @@ const GET_ADMIN_JOBS = gql`
     getAdminJobs{
       id,
       name,
+      type,
       designation,
       deadline,
       stipend,

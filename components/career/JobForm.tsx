@@ -1,7 +1,7 @@
 import { AddJobVariables } from "../../actions/career/__generated__/AddJob";
 import { UpdateJobVariables } from "../../actions/career/__generated__/UpdateJob";
 import { GetAdminJob_getAdminJob } from "../../container/career/__generated__/GetAdminJob";
-import { Form, Input, Button, Checkbox, DatePicker, message } from "antd";
+import { Form, Input, Button, Checkbox, DatePicker, message, Select } from "antd";
 import { useState } from "react";
 import moment from "moment";
 import MarkdownIt from "markdown-it";
@@ -9,6 +9,8 @@ import MdEditor from "react-markdown-editor-lite";
 import addJob from "../../actions/career/addJob";
 import updateJob from "../../actions/career/updateJob";
 import router from "next/router";
+
+const { Option } = Select
 
 const JobForm: React.FC<{
   data: GetAdminJob_getAdminJob;
@@ -18,6 +20,7 @@ const JobForm: React.FC<{
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const onFinish = (values: any) => {
+    console.log(values)
     setLoading(true);
     delete values["check"];
 
@@ -95,6 +98,19 @@ const JobForm: React.FC<{
         rules={[{ required: true, message: "Please input designation" }]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        label="Role Type"
+        name="type"
+        rules={[{ required: true, message: "Please input role type" }]}
+      >
+        <Select
+          placeholder="Not Selected"
+          allowClear
+        >
+          <Option value="Corporate">Corporate</Option>
+          <Option value="Research">Research</Option>
+        </Select>
       </Form.Item>
       <Form.Item
         label="Job Location"

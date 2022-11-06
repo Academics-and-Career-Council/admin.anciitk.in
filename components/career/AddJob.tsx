@@ -16,6 +16,7 @@ const AddJob: React.FC = () => {
           id: "",
           name: "",
           designation: "",
+          type: "",
           description: "",
           jd: "",
           stipend: "",

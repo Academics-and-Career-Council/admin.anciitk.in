@@ -3,14 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
 
-
 export interface JobData {
   name: string;
+  type: string;
   stipend: string;
   jd: string;
   deadline: string;
@@ -27,25 +26,6 @@ export interface JobData {
 export interface NotificationData {
   heading: string;
   data: string;
-}
-
-export enum Category {
-  GDRIVE = "GDRIVE",
-  PDF = "PDF",
-  YOUTUBE = "YOUTUBE",
-  ZOOM = "ZOOM",
-}
-
-export enum Type {
-  DOCUMENT = "DOCUMENT",
-  VIDEO = "VIDEO",
-}
-
-export interface NewObject {
-  name: string;
-  category: Category;
-  link: string;
-
 }
 
 //==============================================================

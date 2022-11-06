@@ -13,6 +13,7 @@ export interface AddJob_addJob {
   __typename: "AdminJob";
   id: string;
   name: string;
+  type: string;
   designation: string;
   deadline: string;
   stipend: string;

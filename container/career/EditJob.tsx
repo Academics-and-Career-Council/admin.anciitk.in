@@ -9,6 +9,7 @@ const GET_ADMIN_JOB = gql`
     getAdminJob(id: $id) {
       id
       name
+      type
       stipend
       deadline
       designation
