@@ -11,6 +11,7 @@ export interface GetAdminJobs_getAdminJobs {
   __typename: "AdminJob";
   id: string;
   name: string;
+  type: string;
   designation: string;
   deadline: string;
   stipend: string;

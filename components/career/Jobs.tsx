@@ -1,5 +1,5 @@
 import { GetAdminJobs_getAdminJobs } from "../../container/career/__generated__/GetAdminJobs";
-import { Button, Space, Table, Typography } from "antd";
+import { Button, Space, Table, Typography, Tag } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import router from "next/router";
@@ -11,6 +11,12 @@ const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
     title: "COMPANY NAME",
     dataIndex: "name",
     key: "name",
+  },
+  {
+    title: "ROLE TYPE",
+    dataIndex: "type",
+    key: "type",
+    render: (type: string) => <Tag color={type == 'corporate' ? 'geekblue' : 'green'}>type</Tag>,
   },
   {
     title: "OPENING NAME",

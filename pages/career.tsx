@@ -6,7 +6,7 @@ import { rules } from "../pkg/abac.careers";
 import CareerPage from "../components/career/CareerPage";
 import WithAuth from "../components/WithAuth";
 
-const CareerDashboard = () => {
+const CareerDashboard:React.FC = () => {
   const session = useRecoilValue(recoilSessionState);
   const role = session?.user.role;
 
