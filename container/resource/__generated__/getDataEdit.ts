@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { Type, Category } from "./../../../__generated__/globalTypes";
 
 // ====================================================
 // GraphQL query operation: getDataEdit
 // ====================================================
-
 
 export interface getDataEdit_getResourcesByWing_objects {
   __typename: "Object";

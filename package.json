@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "eval $(grep 'PORT' .env) next dev",
+    "dev": "eval $(grep 'PORT' .env.local) next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql/career-schema.json --target=typescript --tagName=gql",
+    "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql/resource-schema.json --target=typescript --tagName=gql",
     "download-schema": "npx apollo service:download --endpoint=http://localhost:5000/graphql graphql/career-schema.json"
   },
   "resolutions": {

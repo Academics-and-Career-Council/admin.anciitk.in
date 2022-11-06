@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { NewObject, Category } from "./../../../__generated__/globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: AddObject
 // ====================================================
-
 
 export interface AddObject_addObject {
   __typename: "Object";

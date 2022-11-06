@@ -4,14 +4,14 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetWings
+// GraphQL mutation operation: deleteResource
 // ====================================================
 
-export interface GetWings_getWings {
-  __typename: "Wings";
-  name: string;
+export interface deleteResource {
+  deleteObjects: boolean;
 }
 
-export interface GetWings {
-  getWings: GetWings_getWings[];
+export interface deleteResourceVariables {
+  headingId: string;
+  objectId: string;
 }

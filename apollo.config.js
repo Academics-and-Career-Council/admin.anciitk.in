@@ -1,10 +1,10 @@
 module.exports = {
   client: {
-    includes: ['./container/career/**/*.tsx', './actions/career/**/*.tsx', './actions/career/**/*.ts'],
+    includes: ['./container/resource/**/*.tsx', './actions/resource/**/*.tsx', './actions/resource/**/*.ts'],
     tagName: 'gql',
     service: {
       name: "admin portal",
-      localSchemaFile: './graphql/career-schema.json'
+      localSchemaFile: './graphql/resource-schema.json'
     },
     connectToDevTools: true
   }
