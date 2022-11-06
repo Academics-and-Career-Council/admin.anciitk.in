@@ -16,7 +16,7 @@ const columns: ColumnsType<GetAdminJobs_getAdminJobs> = [
     title: "ROLE TYPE",
     dataIndex: "type",
     key: "type",
-    render: (type: string) => <Tag color={type == 'corporate' ? 'geekblue' : 'green'}>type</Tag>,
+    render: (type: string) => <Tag color={type === 'Corporate' ? 'geekblue' : 'green'}>{type}</Tag>,
   },
   {
     title: "OPENING NAME",
