@@ -133,7 +133,7 @@ const JobForm: React.FC<{
       >
         <DatePicker
           format="DD-MM-YYYY HH:mm"
-          showTime={{ defaultValue: undefined }}
+          showTime={{ defaultValue: moment() }}
           disabledDate={(curr) => curr < moment().endOf("day")}
         />
       </Form.Item>
