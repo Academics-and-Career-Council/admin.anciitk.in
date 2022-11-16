@@ -78,7 +78,7 @@ const JobForm: React.FC<{
       layout="vertical"
       initialValues={{
         ...data,
-        deadline: data.deadline === "" ? moment() : moment(data.deadline),
+        deadline: moment(data.deadline),
         check: false,
       }}
       wrapperCol={{ span: 20 }}
@@ -133,7 +133,7 @@ const JobForm: React.FC<{
       >
         <DatePicker
           format="DD-MM-YYYY HH:mm"
-          showTime={{ defaultValue: moment() }}
+          showTime={{ defaultValue: undefined }}
           disabledDate={(curr) => curr < moment().endOf("day")}
         />
       </Form.Item>
