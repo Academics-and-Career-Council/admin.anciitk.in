@@ -27,7 +27,7 @@
     "markdown-it": "12.2.0",
     "moment": "2.29.1",
     "next": "11.1.2",
-    "postcss": "8.3.9",
+    "postcss": "8.4.31",
     "react": "17.0.2",
     "react-abac": "0.1.0",
     "react-csv": "2.0.3",
